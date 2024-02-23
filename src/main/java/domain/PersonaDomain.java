@@ -13,20 +13,14 @@ public class PersonaDomain {
     private String contraseña;
 
 
-    public PersonaDomain(UUID identificador,String primerNombre,String segundoNombre,String primerApellido,String segundoApellido,String correoElectronico,String contraseña){
-        setIdentificador(identificador);
-        setPrimerNombre(primerNombre);
-        setSegundoNombre(segundoNombre);
-        setPrimerApellido(primerApellido);
-        setSegundoApellido(segundoApellido);
-        setCorreoElectronico(correoElectronico);
-        setContraseña(contraseña);
-    }
+    public PersonaDomain(){
+
+    };
     public UUID getIdentificador() {
         return identificador;
     }
 
-    private void setIdentificador(UUID identificador) {
+    public void setIdentificador(UUID identificador) {
         this.identificador = identificador;
     }
 
@@ -34,7 +28,7 @@ public class PersonaDomain {
         return segundoNombre;
     }
 
-    private void setSegundoNombre(String segundoNombre) {
+    public void setSegundoNombre(String segundoNombre) {
         this.segundoNombre = segundoNombre;
     }
 
@@ -42,7 +36,7 @@ public class PersonaDomain {
         return primerApellido;
     }
 
-    private void setPrimerApellido(String primerApellido) {
+    public void setPrimerApellido(String primerApellido) {
         this.primerApellido = primerApellido;
     }
 
@@ -50,7 +44,7 @@ public class PersonaDomain {
         return segundoApellido;
     }
 
-    private void setSegundoApellido(String segundoApellido) {
+    public void setSegundoApellido(String segundoApellido) {
         this.segundoApellido = segundoApellido;
     }
 
@@ -58,7 +52,7 @@ public class PersonaDomain {
         return correoElectronico;
     }
 
-    private void setCorreoElectronico(String correoElectronico) {
+    public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
 
@@ -66,7 +60,7 @@ public class PersonaDomain {
         return contraseña;
     }
 
-    private void setContraseña(String contraseña) {
+    public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
 
@@ -74,7 +68,7 @@ public class PersonaDomain {
         return primerNombre;
     }
 
-    private void setPrimerNombre(String primerNombre) {
+    public void setPrimerNombre(String primerNombre) {
         this.primerNombre = primerNombre;
     }
 }
