@@ -25,10 +25,10 @@ public class BuzonNotificacionController {
     @PostMapping("/BuzonNotificacion")
     public ResponseEntity<BuzonNotificacionDomain> create(@Validated @RequestBody BuzonNotificacionDomain propietario){return null;}
 
-   /* @PutMapping("/BuzonNotificacion")
+   @PutMapping("/BuzonNotificacion")
     public List<ResponseEntity<BuzonNotificacionDomain>> update(@RequestParam(required = true) String persona,@Validated @RequestBody BuzonNotificacionDomain nombre){
         return null;
-    }*/
+    }
 
     @DeleteMapping("/BuzonNotificacion")
     public List<ResponseEntity<BuzonNotificacionDomain>> delete(@RequestParam(required = true) UUID identificador){
