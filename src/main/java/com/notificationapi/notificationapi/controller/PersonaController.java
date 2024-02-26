@@ -1,16 +1,15 @@
-package controller;
+package com.notificationapi.notificationapi.controller;
 
-import domain.PersonaDomain;
+import com.notificationapi.notificationapi.domain.PersonaDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import service.PersonaService;
+import com.notificationapi.notificationapi.service.PersonaService;
 
 import java.util.List;
 import java.util.UUID;
 
-import static com.sun.beans.introspect.PropertyInfo.Name.required;
 
 @RestController
 @RequestMapping("api/v1")
