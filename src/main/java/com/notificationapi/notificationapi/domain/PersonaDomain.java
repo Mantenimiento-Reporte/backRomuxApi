@@ -68,7 +68,21 @@ public class PersonaDomain {
         return primerNombre;
     }
 
-    public void setPrimerNombre(String primerNombre) {
+    public PersonaDomain setPrimerNombre(String primerNombre) {
         this.primerNombre = primerNombre;
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return "PersonaDomain{" +
+                "identificador=" + identificador +
+                ", primerNombre='" + primerNombre + '\'' +
+                ", segundoNombre='" + segundoNombre + '\'' +
+                ", primerApellido='" + primerApellido + '\'' +
+                ", segundoApellido='" + segundoApellido + '\'' +
+                ", correoElectronico='" + correoElectronico + '\'' +
+                ", contraseña='" + contraseña + '\'' +
+                '}';
     }
 }

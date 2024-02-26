@@ -34,4 +34,13 @@ public class UsuarioDomain {
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
     }
+
+    @Override
+    public String toString() {
+        return "UsuarioDomain{" +
+                "identificador=" + identificador +
+                ", correoElectronico='" + correoElectronico + '\'' +
+                ", contraseña='" + contraseña + '\'' +
+                '}';
+    }
 }
