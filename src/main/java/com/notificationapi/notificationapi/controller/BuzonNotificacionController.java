@@ -1,7 +1,7 @@
-package controller;
+package com.notificationapi.notificationapi.controller;
 
 
-import domain.BuzonNotificacionDomain;
+import com.notificationapi.notificationapi.domain.BuzonNotificacionDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -25,7 +25,7 @@ public class BuzonNotificacionController {
     @PostMapping("/BuzonNotificacion")
     public ResponseEntity<BuzonNotificacionDomain> create(@Validated @RequestBody BuzonNotificacionDomain propietario){return null;}
 
-   @PutMapping("/BuzonNotificacion")
+    @PutMapping("/BuzonNotificacion")
     public List<ResponseEntity<BuzonNotificacionDomain>> update(@RequestParam(required = true) String persona,@Validated @RequestBody BuzonNotificacionDomain nombre){
         return null;
     }

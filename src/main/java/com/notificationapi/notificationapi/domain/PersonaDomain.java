@@ -1,4 +1,4 @@
-package domain;
+package com.notificationapi.notificationapi.domain;
 
 import java.util.UUID;
 
