@@ -7,26 +7,32 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.notificationapi.notificationapi.service.PersonaService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("persona/v1")
 
 public class PersonaController {
 
     @Autowired
-    private PersonaService personaService;
+    private PersonaService personaService = new PersonaService();;
+    private List<String> messageDialog;
 
+    @GetMapping("/dummy")
+    public PersonaDomain getDummy(){
+        return new PersonaDomain();
+    }
     @GetMapping("/persona")
     public List<PersonaDomain> get(@RequestParam(required = true) String correoElectronico){
-        return null;
+        return personaService.consult(correoElectronico);
     }
 
     @PostMapping("/persona")
-    public ResponseEntity<PersonaDomain> create(@Validated @RequestBody PersonaDomain persona){
-        return null;
+    public String create(@Validated @RequestBody PersonaDomain persona){
+        return personaService.create(persona);
     }
     @PutMapping("/persona")
     public List<ResponseEntity<PersonaDomain>> update(@RequestParam(required = true) String correoElectronico,@Validated @RequestBody PersonaDomain persona){
