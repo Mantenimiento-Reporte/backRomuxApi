@@ -1,5 +1,8 @@
 package com.notificationapi.notificationapi.domain;
 
+import com.notificationapi.notificationapi.crossCutting.UtilDefaultValue;
+import com.notificationapi.notificationapi.crossCutting.UtilUUID;
+
 import java.util.UUID;
 
 public class UsuarioDomain {
@@ -16,7 +19,7 @@ public class UsuarioDomain {
     }
 
     public void setIdentificador(UUID identificador) {
-        this.identificador = identificador;
+        this.identificador = (UUID) UtilDefaultValue.defaultValue(identificador, UtilUUID.getUuidDefaultValue());
     }
 
     public String getCorreoElectronico() {
@@ -24,7 +27,7 @@ public class UsuarioDomain {
     }
 
     public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
+        this.correoElectronico = (String) UtilDefaultValue.defaultValue(correoElectronico,"");
     }
 
     public String getContraseña() {
@@ -32,7 +35,7 @@ public class UsuarioDomain {
     }
 
     public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+        this.contraseña = (String) UtilDefaultValue.defaultValue(contraseña,"");
     }
 
     @Override

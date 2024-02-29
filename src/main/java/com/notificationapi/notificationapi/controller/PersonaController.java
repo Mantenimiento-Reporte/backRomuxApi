@@ -18,10 +18,10 @@ import java.util.UUID;
 public class PersonaController {
 
     @Autowired
-    private PersonaService personaService = new PersonaService();;
+    private PersonaService personaService = new PersonaService();
     private List<String> messageDialog;
 
-    @GetMapping("/dummy")
+    @GetMapping("/dummy_persona")
     public PersonaDomain getDummy(){
         return new PersonaDomain();
     }
