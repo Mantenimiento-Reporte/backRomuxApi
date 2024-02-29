@@ -7,12 +7,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.notificationapi.notificationapi.service.PersonaService;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("persona/v1")
 
 public class PersonaController {
 
@@ -25,8 +26,8 @@ public class PersonaController {
         return new PersonaDomain();
     }
     @GetMapping("/persona")
-    public ResponseEntity<List<PersonaDomain>>get(@RequestParam(required = true) String correoElectronico){
-        return (ResponseEntity<List<PersonaDomain>>) personaService.consult(correoElectronico);
+    public List<PersonaDomain> get(@RequestParam(required = true) String correoElectronico){
+        return personaService.consult(correoElectronico);
     }
 
     @PostMapping("/persona")
