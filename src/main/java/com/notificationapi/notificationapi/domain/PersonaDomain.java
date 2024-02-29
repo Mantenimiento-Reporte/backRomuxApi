@@ -1,5 +1,8 @@
 package com.notificationapi.notificationapi.domain;
 
+import com.notificationapi.notificationapi.crossCutting.UtilDefaultValue;
+import com.notificationapi.notificationapi.crossCutting.UtilUUID;
+
 import java.util.UUID;
 
 public class PersonaDomain {
@@ -21,7 +24,7 @@ public class PersonaDomain {
     }
 
     public void setIdentificador(UUID identificador) {
-        this.identificador = identificador;
+        this.identificador = (UUID) UtilDefaultValue.defaultValue(identificador,UtilUUID.getUuidDefaultValue());
     }
 
     public String getSegundoNombre() {
@@ -29,7 +32,7 @@ public class PersonaDomain {
     }
 
     public void setSegundoNombre(String segundoNombre) {
-        this.segundoNombre = segundoNombre;
+        this.segundoNombre = (String) UtilDefaultValue.defaultValue(segundoNombre,"");
     }
 
     public String getPrimerApellido() {
@@ -37,7 +40,7 @@ public class PersonaDomain {
     }
 
     public void setPrimerApellido(String primerApellido) {
-        this.primerApellido = primerApellido;
+        this.primerApellido = (String) UtilDefaultValue.defaultValue(primerApellido,"");
     }
 
     public String getSegundoApellido() {
@@ -45,7 +48,7 @@ public class PersonaDomain {
     }
 
     public void setSegundoApellido(String segundoApellido) {
-        this.segundoApellido = segundoApellido;
+        this.segundoApellido = (String) UtilDefaultValue.defaultValue(segundoApellido,"");
     }
 
     public String getCorreoElectronico() {
@@ -53,7 +56,7 @@ public class PersonaDomain {
     }
 
     public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
+        this.correoElectronico = (String) UtilDefaultValue.defaultValue(correoElectronico,"");
     }
 
     public String getContraseña() {
@@ -61,7 +64,7 @@ public class PersonaDomain {
     }
 
     public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+        this.contraseña = (String) UtilDefaultValue.defaultValue(contraseña,"");
     }
 
     public String getPrimerNombre() {
@@ -69,7 +72,7 @@ public class PersonaDomain {
     }
 
     public PersonaDomain setPrimerNombre(String primerNombre) {
-        this.primerNombre = primerNombre;
+        this.primerNombre = (String) UtilDefaultValue.defaultValue(primerNombre,"");
         return null;
     }
 
