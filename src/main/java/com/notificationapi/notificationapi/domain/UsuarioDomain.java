@@ -12,6 +12,9 @@ public class UsuarioDomain {
 
 
     public UsuarioDomain() {
+        setIdentificador(UtilUUID.getUuidDefaultValue());
+        setCorreoElectronico("");
+        setContraseña("");
     }
 
     public UUID getIdentificador() {

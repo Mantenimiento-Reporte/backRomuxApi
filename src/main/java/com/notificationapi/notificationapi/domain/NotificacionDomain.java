@@ -2,6 +2,7 @@ package com.notificationapi.notificationapi.domain;
 
 import com.notificationapi.notificationapi.crossCutting.UtilDate;
 import com.notificationapi.notificationapi.crossCutting.UtilDefaultValue;
+import com.notificationapi.notificationapi.crossCutting.UtilText;
 import com.notificationapi.notificationapi.crossCutting.UtilUUID;
 
 import java.util.Date;
@@ -19,7 +20,14 @@ public class NotificacionDomain {
 
 
     public NotificacionDomain() {
-
+        setIdentificador(UtilUUID.getUuidDefaultValue());
+        setAutor(new UsuarioDomain());
+        setTitulo(UtilText.getDefaultTextValue());
+        setContenido(UtilText.getDefaultTextValue());
+        setFechaCreacion(UtilDate.getDefaultValueDate());
+        setEstado(UtilText.getDefaultTextValue());
+        setFechaProgramada(UtilDate.getDefaultValueDate());
+        setTipoEntrega(UtilText.getDefaultTextValue());
     }
 
     public UUID getIdentificador() {
