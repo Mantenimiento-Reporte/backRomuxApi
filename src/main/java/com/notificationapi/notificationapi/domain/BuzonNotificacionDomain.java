@@ -1,6 +1,7 @@
 package com.notificationapi.notificationapi.domain;
 
 import com.notificationapi.notificationapi.crossCutting.UtilDefaultValue;
+import com.notificationapi.notificationapi.crossCutting.UtilText;
 import com.notificationapi.notificationapi.crossCutting.UtilUUID;
 
 import java.util.ArrayList;
@@ -15,6 +16,10 @@ public class BuzonNotificacionDomain {
     private List<NotificacionDomain> notificaciones;
 
     public BuzonNotificacionDomain() {
+        setIdentificador(UtilUUID.getUuidDefaultValue());
+        setPropietario(new UsuarioDomain());
+        setNombre(UtilText.getDefaultTextValue());
+        setNotificaciones(new ArrayList<>());
     }
 
     public UUID getIdentificador() {
