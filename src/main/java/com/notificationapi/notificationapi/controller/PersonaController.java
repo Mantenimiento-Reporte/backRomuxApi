@@ -12,21 +12,26 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("/api/v1")
 
 public class PersonaController {
 
     @Autowired
-    private PersonaService personaService;
+    private PersonaService personaService = new PersonaService();
+    private List<String> messageDialog;
 
+    @GetMapping("/dummy_persona")
+    public PersonaDomain getDummy(){
+        return new PersonaDomain();
+    }
     @GetMapping("/persona")
-    public List<PersonaDomain> get(@RequestParam(required = true) String correoElectronico){
-        return null;
+    public ResponseEntity<List<PersonaDomain>>get(@RequestParam(required = true) String correoElectronico){
+        return (ResponseEntity<List<PersonaDomain>>) personaService.consult(correoElectronico);
     }
 
     @PostMapping("/persona")
-    public ResponseEntity<PersonaDomain> create(@Validated @RequestBody PersonaDomain persona){
-        return null;
+    public String create(@Validated @RequestBody PersonaDomain persona){
+        return personaService.create(persona);
     }
     @PutMapping("/persona")
     public List<ResponseEntity<PersonaDomain>> update(@RequestParam(required = true) String correoElectronico,@Validated @RequestBody PersonaDomain persona){

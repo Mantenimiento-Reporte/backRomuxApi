@@ -1,5 +1,9 @@
 package com.notificationapi.notificationapi.domain;
 
+import com.notificationapi.notificationapi.crossCutting.UtilDate;
+import com.notificationapi.notificationapi.crossCutting.UtilDefaultValue;
+import com.notificationapi.notificationapi.crossCutting.UtilUUID;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -23,7 +27,7 @@ public class NotificacionDomain {
     }
 
     public void setIdentificador(UUID identificador) {
-        this.identificador = identificador;
+        this.identificador = (UUID) UtilDefaultValue.defaultValue(identificador,UtilUUID.getUuidDefaultValue());
     }
 
     public UsuarioDomain getAutor() {
@@ -31,7 +35,7 @@ public class NotificacionDomain {
     }
 
     public void setAutor(UsuarioDomain autor) {
-        this.autor = autor;
+        this.autor = (UsuarioDomain) UtilDefaultValue.defaultValue(autor,new UsuarioDomain());
     }
 
     public String getTitulo() {
@@ -39,7 +43,8 @@ public class NotificacionDomain {
     }
 
     public void setTitulo(String titulo) {
-        this.titulo = titulo;
+
+        this.titulo = (String) UtilDefaultValue.defaultValue(titulo,"");
     }
 
     public String getContenido() {
@@ -47,7 +52,7 @@ public class NotificacionDomain {
     }
 
     public void setContenido(String contenido) {
-        this.contenido = contenido;
+        this.contenido = (String) UtilDefaultValue.defaultValue(contenido,"");
     }
 
     public Date getFechaCreacion() {
@@ -55,7 +60,7 @@ public class NotificacionDomain {
     }
 
     public void setFechaCreacion(Date fechaCreacion) {
-        this.fechaCreacion = fechaCreacion;
+        this.fechaCreacion = (Date) UtilDefaultValue.defaultValue(fechaCreacion,UtilDate.getDefaultValueDate());
     }
 
     public String getEstado() {
@@ -63,7 +68,7 @@ public class NotificacionDomain {
     }
 
     public void setEstado(String estado) {
-        this.estado = estado;
+        this.estado = (String) UtilDefaultValue.defaultValue(estado,"");
     }
 
     public Date getFechaProgramada() {
@@ -71,7 +76,7 @@ public class NotificacionDomain {
     }
 
     public void setFechaProgramada(Date fechaProgramada) {
-        this.fechaProgramada = fechaProgramada;
+        this.fechaProgramada = (Date) UtilDefaultValue.defaultValue(fechaProgramada, UtilDate.getDefaultValueDate());
     }
 
     public String getTipoEntrega() {
@@ -79,6 +84,7 @@ public class NotificacionDomain {
     }
 
     public void setTipoEntrega(String tipoEntrega) {
-        this.tipoEntrega = tipoEntrega;
+
+        this.tipoEntrega = (String) UtilDefaultValue.defaultValue(tipoEntrega,"");
     }
 }
