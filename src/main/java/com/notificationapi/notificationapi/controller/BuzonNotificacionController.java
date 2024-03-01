@@ -2,6 +2,7 @@ package com.notificationapi.notificationapi.controller;
 
 
 import com.notificationapi.notificationapi.domain.BuzonNotificacionDomain;
+import com.notificationapi.notificationapi.service.BuzonNotificacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -17,7 +18,7 @@ import java.util.UUID;
 public class BuzonNotificacionController {
 
     @Autowired
-    private BuzonNotificacionController buzonNotificacionController;
+    private BuzonNotificacionService buzonNotificacionController;
 
     @GetMapping("/BuzonNotificacion")
     public List<BuzonNotificacionDomain> get(@RequestParam(required = true) String nombre){return null;}
