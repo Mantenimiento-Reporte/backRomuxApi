@@ -47,9 +47,6 @@ public class PersonaService {
         if(persona.getCorreoElectronico().equals("")){
             return messageDialog = "Error, debe ingresar un correo electronico";
         }
-        if(persona.getContraseña().equals("")){
-            return messageDialog = "Error, debe ingresar una contraseña";
-        }
         persona.setIdentificador(UUID.randomUUID());
         return messageDialog = "Usuario registrado con exito";
     }

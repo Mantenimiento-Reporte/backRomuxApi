@@ -2,6 +2,7 @@ package com.notificationapi.notificationapi.controller;
 
 import com.notificationapi.notificationapi.domain.NotificacionDomain;
 import com.notificationapi.notificationapi.domain.PersonaDomain;
+import com.notificationapi.notificationapi.domain.UsuarioDomain;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -23,7 +24,7 @@ public class NotificacionController {
 
     @GetMapping("/consultar")
     public NotificacionDomain get(@RequestParam(required = true) String correoElectronico){
-        var persona = new PersonaDomain();
+        var persona = new UsuarioDomain();
         return new NotificacionDomain(UUID.randomUUID(), persona, "Despido", "Usted no hace nada", new Date(), "enviado",new Date(), "Programada" );
     }
 

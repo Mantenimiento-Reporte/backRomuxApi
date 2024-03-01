@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class NotificacionDomain {
     private UUID identificador;
-    private PersonaDomain autor;
+    private UsuarioDomain autor;
     private String titulo;
     private String contenido;
     private Date fechaCreacion;
@@ -30,7 +30,7 @@ public class NotificacionDomain {
         setTipoEntrega(UtilText.getDefaultTextValue());
     }
 
-    public NotificacionDomain(UUID identificador, PersonaDomain autor, String titulo, String contenido, Date fechaCreacion, String estado, Date fechaProgramada, String tipoEntrega) {
+    public NotificacionDomain(UUID identificador, UsuarioDomain autor, String titulo, String contenido, Date fechaCreacion, String estado, Date fechaProgramada, String tipoEntrega) {
         this.identificador = identificador;
         this.autor = autor;
         this.titulo = titulo;
@@ -49,7 +49,7 @@ public class NotificacionDomain {
         this.identificador = (UUID) UtilDefaultValue.defaultValue(identificador,UtilUUID.getUuidDefaultValue());
     }
 
-    public PersonaDomain getAutor() {
+    public UsuarioDomain getAutor() {
         return autor;
     }
 
