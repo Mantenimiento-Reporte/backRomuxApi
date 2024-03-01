@@ -1,6 +1,7 @@
 package com.notificationapi.notificationapi.service;
 
 import com.notificationapi.notificationapi.crossCutting.UtilText;
+import com.notificationapi.notificationapi.crossCutting.UtilUUID;
 import com.notificationapi.notificationapi.domain.PersonaDomain;
 import org.springframework.stereotype.Service;
 
@@ -41,13 +42,28 @@ public class PersonaService {
 
     public String create(PersonaDomain persona){
         String messageDialog;
-        if(persona.getPrimerNombre().equals("") || persona.getPrimerApellido().equals("")){
+        if(persona.getPrimerNombre().equals(UtilText.getDefaultTextValue()) || persona.getPrimerApellido().equals(UtilText.getDefaultTextValue()))
+        {
             return messageDialog = "Error debe ingresar al menos un nombre y apellido";
         }
-        if(persona.getCorreoElectronico().equals("")){
+        if(persona.getCorreoElectronico().equals(UtilText.getDefaultTextValue())){
             return messageDialog = "Error, debe ingresar un correo electronico";
         }
         persona.setIdentificador(UUID.randomUUID());
         return messageDialog = "Usuario registrado con exito";
+    }
+
+    public String update(PersonaDomain persona){
+        if(persona.getCorreoElectronico().equals(UtilText.getDefaultTextValue())){
+            return "Error, correo electronico no válido";
+        }
+        return "se conectó bien";
+    }
+
+    public String delete(UUID identificador){
+        if(identificador.equals(UtilUUID.getUuidDefaultValue())){
+            return "identificador no valido";
+        }
+        return "se conecta bien";
     }
 }

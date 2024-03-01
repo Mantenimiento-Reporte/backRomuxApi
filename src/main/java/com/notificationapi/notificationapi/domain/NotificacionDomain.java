@@ -54,7 +54,7 @@ public class NotificacionDomain {
     }
 
     public void setAutor(UsuarioDomain autor) {
-        this.autor = (PersonaDomain) UtilDefaultValue.defaultValue(autor,new UsuarioDomain());
+        this.autor = (UsuarioDomain) UtilDefaultValue.defaultValue(autor,new UsuarioDomain());
     }
 
     public String getTitulo() {

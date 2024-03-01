@@ -35,12 +35,13 @@ public class PersonaController {
         return personaService.create(persona);
     }
     @PutMapping("/persona")
-    public List<ResponseEntity<PersonaDomain>> update(@RequestParam(required = true) String correoElectronico,@Validated @RequestBody PersonaDomain persona){
-        return null;
+    public String update(@RequestParam(required = true) String correoElectronico,@Validated @RequestBody PersonaDomain persona){
+        persona.setCorreoElectronico(correoElectronico);
+        return personaService.update(persona);
     }
 
     @DeleteMapping("/persona")
-    public List<ResponseEntity<PersonaDomain>> delete(@RequestParam(required = true) UUID identificador){
-        return null;
+    public String delete(@RequestParam(required = true) UUID identificador){
+        return personaService.delete(identificador);
     }
 }
