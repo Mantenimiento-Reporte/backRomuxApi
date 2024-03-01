@@ -13,7 +13,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("BuzonNotificacion/v1")
 
 public class BuzonNotificacionController {
 
@@ -22,9 +22,6 @@ public class BuzonNotificacionController {
 
     @GetMapping("/BuzonNotificacion")
     public List<BuzonNotificacionDomain> get(@RequestParam(required = true) String nombre){return null;}
-
-    @PostMapping("/BuzonNotificacion")
-    public ResponseEntity<BuzonNotificacionDomain> create(@Validated @RequestBody BuzonNotificacionDomain propietario){return null;}
 
     @PutMapping("/BuzonNotificacion")
     public List<ResponseEntity<BuzonNotificacionDomain>> update(@RequestParam(required = true) String persona,@Validated @RequestBody BuzonNotificacionDomain nombre){

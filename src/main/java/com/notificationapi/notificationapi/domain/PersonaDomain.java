@@ -13,7 +13,7 @@ public class PersonaDomain {
     private String primerApellido;
     private String segundoApellido;
     private String correoElectronico;
-    private String contraseña;
+
 
 
     public PersonaDomain(){
@@ -23,7 +23,7 @@ public class PersonaDomain {
         setPrimerApellido("");
         setSegundoApellido("");
         setCorreoElectronico("");
-        setContraseña("");
+
     };
     public UUID getIdentificador() {
         return identificador;
@@ -65,14 +65,6 @@ public class PersonaDomain {
         this.correoElectronico = (String) UtilDefaultValue.defaultValue(correoElectronico,"");
     }
 
-    public String getContraseña() {
-        return contraseña;
-    }
-
-    public void setContraseña(String contraseña) {
-        this.contraseña = (String) UtilDefaultValue.defaultValue(contraseña,"");
-    }
-
     public String getPrimerNombre() {
         return primerNombre;
     }
@@ -90,8 +82,7 @@ public class PersonaDomain {
                 ", segundoNombre='" + segundoNombre + '\'' +
                 ", primerApellido='" + primerApellido + '\'' +
                 ", segundoApellido='" + segundoApellido + '\'' +
-                ", correoElectronico='" + correoElectronico + '\'' +
-                ", contraseña='" + contraseña + '\'' +
+                ", correoElectronico='" + correoElectronico + '\''+
                 '}';
     }
 }

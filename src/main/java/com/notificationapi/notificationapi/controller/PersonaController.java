@@ -13,7 +13,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("persona/v1")
+@RequestMapping("/v1")
 
 public class PersonaController {
 
