@@ -16,24 +16,24 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("notificacion/v1")
+@RequestMapping("v1")
 public class NotificacionController {
 
     @Autowired
     private NotificacionService notificacionService;
 
-    @GetMapping("/consultar")
+    @GetMapping("/notificacion")
     public NotificacionDomain get(@RequestParam(required = true) String correoElectronico){
         var persona = new UsuarioDomain();
         return new NotificacionDomain(UUID.randomUUID(), persona, "Despido", "Usted no hace nada", new Date(), "enviado",new Date(), "Programada" );
     }
 
-    @PostMapping("/crear")
+    @PostMapping("/notificacion")
     public ResponseEntity<NotificacionDomain> create(@Validated @RequestBody NotificacionDomain notificacion){
         return null;
     }
 
-    @DeleteMapping("/eliminar")
+    @DeleteMapping("/notificacion")
     public List<ResponseEntity<NotificacionDomain>> delete(@RequestParam(required = true) UUID identificador){
         return new ArrayList<>();
     }
