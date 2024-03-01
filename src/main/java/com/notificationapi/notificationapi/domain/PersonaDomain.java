@@ -17,7 +17,13 @@ public class PersonaDomain {
 
 
     public PersonaDomain(){
-
+        setIdentificador(UtilUUID.getUuidDefaultValue());
+        setPrimerNombre("");
+        setSegundoNombre("");
+        setPrimerApellido("");
+        setSegundoApellido("");
+        setCorreoElectronico("");
+        setContraseña("");
     };
     public UUID getIdentificador() {
         return identificador;
