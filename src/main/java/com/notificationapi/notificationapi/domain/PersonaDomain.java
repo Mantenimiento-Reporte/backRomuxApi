@@ -1,6 +1,8 @@
 package com.notificationapi.notificationapi.domain;
 
-import com.notificationapi.notificationapi.crossCutting.UtilDefaultValue;
+import com.notificationapi.notificationapi.crossCutting.UtilDefaultObject;
+import com.notificationapi.notificationapi.crossCutting.UtilEmail;
+import com.notificationapi.notificationapi.crossCutting.UtilText;
 import com.notificationapi.notificationapi.crossCutting.UtilUUID;
 
 import java.util.UUID;
@@ -18,11 +20,11 @@ public class PersonaDomain {
 
     public PersonaDomain(){
         setIdentificador(UtilUUID.getUuidDefaultValue());
-        setPrimerNombre("");
-        setSegundoNombre("");
-        setPrimerApellido("");
-        setSegundoApellido("");
-        setCorreoElectronico("");
+        setPrimerNombre(UtilText.getDefaultTextValue());
+        setSegundoNombre(UtilText.getDefaultTextValue());
+        setPrimerApellido(UtilText.getDefaultTextValue());
+        setSegundoApellido(UtilText.getDefaultTextValue());
+        setCorreoElectronico(UtilEmail.getDefaultValueMail());
 
     };
     public UUID getIdentificador() {
@@ -30,7 +32,7 @@ public class PersonaDomain {
     }
 
     public void setIdentificador(UUID identificador) {
-        this.identificador = (UUID) UtilDefaultValue.defaultValue(identificador,UtilUUID.getUuidDefaultValue());
+        this.identificador = (UUID) UtilDefaultObject.defaultValue(identificador,UtilUUID.getUuidDefaultValue());
     }
 
     public String getSegundoNombre() {
@@ -38,7 +40,7 @@ public class PersonaDomain {
     }
 
     public void setSegundoNombre(String segundoNombre) {
-        this.segundoNombre = (String) UtilDefaultValue.defaultValue(segundoNombre,"");
+        this.segundoNombre = (String) UtilDefaultObject.defaultValue(segundoNombre,UtilText.getDefaultTextValue());
     }
 
     public String getPrimerApellido() {
@@ -46,7 +48,7 @@ public class PersonaDomain {
     }
 
     public void setPrimerApellido(String primerApellido) {
-        this.primerApellido = (String) UtilDefaultValue.defaultValue(primerApellido,"");
+        this.primerApellido = (String) UtilDefaultObject.defaultValue(primerApellido,UtilText.getDefaultTextValue());
     }
 
     public String getSegundoApellido() {
@@ -54,7 +56,7 @@ public class PersonaDomain {
     }
 
     public void setSegundoApellido(String segundoApellido) {
-        this.segundoApellido = (String) UtilDefaultValue.defaultValue(segundoApellido,"");
+        this.segundoApellido = (String) UtilDefaultObject.defaultValue(segundoApellido,UtilText.getDefaultTextValue());
     }
 
     public String getCorreoElectronico() {
@@ -62,7 +64,7 @@ public class PersonaDomain {
     }
 
     public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = (String) UtilDefaultValue.defaultValue(correoElectronico,"");
+        this.correoElectronico = (String) UtilDefaultObject.defaultValue(correoElectronico, UtilEmail.getDefaultValueMail());
     }
 
     public String getPrimerNombre() {
@@ -70,7 +72,7 @@ public class PersonaDomain {
     }
 
     public PersonaDomain setPrimerNombre(String primerNombre) {
-        this.primerNombre = (String) UtilDefaultValue.defaultValue(primerNombre,"");
+        this.primerNombre = (String) UtilDefaultObject.defaultValue(primerNombre,UtilText.getDefaultTextValue());
         return null;
     }
 

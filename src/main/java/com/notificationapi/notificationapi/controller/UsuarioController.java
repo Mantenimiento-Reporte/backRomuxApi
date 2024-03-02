@@ -8,6 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1")
@@ -22,23 +23,23 @@ public class UsuarioController {
 
     @GetMapping("/usuario")
     public List<UsuarioDomain> getUsuario(@RequestParam(required = true) String correoElectronico){
-        return null;
+        return usuarioService.consult(correoElectronico);
     }
 
     @PostMapping("/usuario")
     public String createUsuario(@RequestBody(required = true) UsuarioDomain usuarioDomain){
-        return null;
+        return usuarioService.create(usuarioDomain);
     }
 
 
     @PutMapping("/usuario")
     public String update(@RequestParam(required = true) String correoElectronico,@Validated @RequestBody String contraseña){
-        return null;
+        return usuarioService.update(correoElectronico,contraseña);
     }
 
     @DeleteMapping("/usuario")
-    public String delete(@RequestParam(required = true) String correoElectronico){
-        return null;
+    public String delete(@RequestParam(required = true) UUID identificador){
+        return usuarioService.delete(identificador);
     }
 
 }
