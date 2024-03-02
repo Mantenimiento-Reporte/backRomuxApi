@@ -1,6 +1,6 @@
 package com.notificationapi.notificationapi.domain;
 
-import com.notificationapi.notificationapi.crossCutting.UtilDefaultValue;
+import com.notificationapi.notificationapi.crossCutting.UtilDefaultObject;
 import com.notificationapi.notificationapi.crossCutting.UtilText;
 import com.notificationapi.notificationapi.crossCutting.UtilUUID;
 
@@ -28,7 +28,7 @@ public class BuzonNotificacionDomain {
 
     public void setIdentificador(UUID identificador) {
 
-        this.identificador = (UUID) UtilDefaultValue.defaultValue(identificador, UtilUUID.getUuidDefaultValue());
+        this.identificador = (UUID) UtilDefaultObject.defaultValue(identificador, UtilUUID.getUuidDefaultValue());
     }
 
     public UsuarioDomain getPropietario() {
@@ -36,7 +36,7 @@ public class BuzonNotificacionDomain {
     }
 
     public void setPropietario(UsuarioDomain propietario) {
-        this.propietario = (UsuarioDomain) UtilDefaultValue.defaultValue(propietario,new UsuarioDomain());
+        this.propietario = (UsuarioDomain) UtilDefaultObject.defaultValue(propietario,new UsuarioDomain());
     }
 
     public String getNombre() {
@@ -45,7 +45,7 @@ public class BuzonNotificacionDomain {
 
     public void setNombre(String nombre) {
 
-        this.nombre = (String) UtilDefaultValue.defaultValue(nombre,"");
+        this.nombre = (String) UtilDefaultObject.defaultValue(nombre,UtilText.getDefaultTextValue());
     }
 
     public List<NotificacionDomain> getNotificaciones() {
@@ -53,6 +53,6 @@ public class BuzonNotificacionDomain {
     }
 
     public void setNotificaciones(List<NotificacionDomain> notificaciones) {
-        this.notificaciones = (List<NotificacionDomain>) UtilDefaultValue.defaultValue(notificaciones,new ArrayList<>());
+        this.notificaciones = (List<NotificacionDomain>) UtilDefaultObject.defaultValue(notificaciones,new ArrayList<>());
     }
 }
