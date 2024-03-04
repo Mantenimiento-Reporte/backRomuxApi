@@ -1,0 +1,69 @@
+package com.notificationapi.notificationapi.entity;
+
+import jakarta.persistence.*;
+
+import java.util.List;
+import java.util.UUID;
+
+@Entity
+@Table(name = "buzonNotificacion")
+public class BuzonNotificacionEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "identificador")
+    private UUID identificador;
+
+    @OneToOne
+    @JoinColumn(name = "persona")
+    private UsuarioEntity propietario;
+
+    @Column(name = "nombre", length = 30)
+    private String nombre;
+
+    @OneToMany
+    @JoinColumn(name = "notificaciones")
+    private List<NotificacionEntity> notificaciones;
+
+    public BuzonNotificacionEntity(UUID identificador, UsuarioEntity propietario, String nombre, List<NotificacionEntity> notificaciones) {
+        this.identificador = identificador;
+        this.propietario = propietario;
+        this.nombre = nombre;
+        this.notificaciones = notificaciones;
+    }
+
+    public BuzonNotificacionEntity() {
+    }
+
+    public UUID getIdentificador() {
+        return identificador;
+    }
+
+    public void setIdentificador(UUID identificador) {
+        this.identificador = identificador;
+    }
+
+    public UsuarioEntity getPropietario() {
+        return propietario;
+    }
+
+    public void setPropietario(UsuarioEntity propietario) {
+        this.propietario = propietario;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public List<NotificacionEntity> getNotificaciones() {
+        return notificaciones;
+    }
+
+    public void setNotificaciones(List<NotificacionEntity> notificaciones) {
+        this.notificaciones = notificaciones;
+    }
+}

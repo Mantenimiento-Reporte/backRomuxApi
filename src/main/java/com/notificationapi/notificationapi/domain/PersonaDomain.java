@@ -2,19 +2,35 @@ package com.notificationapi.notificationapi.domain;
 
 import com.notificationapi.notificationapi.crossCutting.UtilDefaultValue;
 import com.notificationapi.notificationapi.crossCutting.UtilUUID;
+import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.UUID;
+
 
 public class PersonaDomain {
 
     private UUID identificador;
+
     private String primerNombre;
+
     private String segundoNombre;
+
     private String primerApellido;
+
     private String segundoApellido;
+
     private String correoElectronico;
 
 
+    public PersonaDomain(UUID identificador, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String correoElectronico) {
+        this.identificador = identificador;
+        this.primerNombre = primerNombre;
+        this.segundoNombre = segundoNombre;
+        this.primerApellido = primerApellido;
+        this.segundoApellido = segundoApellido;
+        this.correoElectronico = correoElectronico;
+    }
 
     public PersonaDomain(){
         setIdentificador(UtilUUID.getUuidDefaultValue());

@@ -4,6 +4,7 @@ import com.notificationapi.notificationapi.domain.NotificacionDomain;
 import com.notificationapi.notificationapi.domain.PersonaDomain;
 import com.notificationapi.notificationapi.domain.UsuarioDomain;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -23,14 +24,13 @@ public class NotificacionController {
     private NotificacionService notificacionService;
 
     @GetMapping("/notificacion")
-    public NotificacionDomain get(@RequestParam(required = true) String correoElectronico){
-        var persona = new UsuarioDomain();
-        return new NotificacionDomain(UUID.randomUUID(), persona, "Despido", "Usted no hace nada", new Date(), "enviado",new Date(), "Programada" );
+    public List<NotificacionDomain> get(){
+        return notificacionService.findAll();
     }
 
     @PostMapping("/notificacion")
-    public ResponseEntity<NotificacionDomain> create(@Validated @RequestBody NotificacionDomain notificacion){
-        return null;
+    public ResponseEntity<UUID> create(@Validated @RequestBody NotificacionDomain notificacion){
+        return new ResponseEntity<>(notificacionService.saveNotificacion(notificacion), HttpStatus.OK);
     }
 
     @DeleteMapping("/notificacion")
