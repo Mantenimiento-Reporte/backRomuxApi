@@ -4,14 +4,21 @@ import com.notificationapi.notificationapi.crossCutting.UtilDefaultObject;
 import com.notificationapi.notificationapi.crossCutting.UtilEmail;
 import com.notificationapi.notificationapi.crossCutting.UtilText;
 import com.notificationapi.notificationapi.crossCutting.UtilUUID;
+import lombok.AllArgsConstructor;
 
 import java.util.UUID;
 
 public class UsuarioDomain {
+
     private UUID identificador;
     private String correoElectronico;
     private String contraseña;
 
+    public UsuarioDomain(UUID identificador, String correoElectronico, String contraseña) {
+        this.identificador = identificador;
+        this.correoElectronico = correoElectronico;
+        this.contraseña = contraseña;
+    }
 
     public UsuarioDomain() {
         setIdentificador(UtilUUID.getUuidDefaultValue());

@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class BuzonNotificacionDomain {
+
     private UUID identificador;
     private UsuarioDomain propietario;
     private String nombre;
-
     private List<NotificacionDomain> notificaciones;
 
     public BuzonNotificacionDomain() {
@@ -20,6 +20,13 @@ public class BuzonNotificacionDomain {
         setPropietario(new UsuarioDomain());
         setNombre(UtilText.getDefaultTextValue());
         setNotificaciones(new ArrayList<>());
+    }
+
+    public BuzonNotificacionDomain(UUID identificador, UsuarioDomain propietario, String nombre, List<NotificacionDomain> notificaciones) {
+        this.identificador = identificador;
+        this.propietario = propietario;
+        this.nombre = nombre;
+        this.notificaciones = notificaciones;
     }
 
     public UUID getIdentificador() {
@@ -53,6 +60,6 @@ public class BuzonNotificacionDomain {
     }
 
     public void setNotificaciones(List<NotificacionDomain> notificaciones) {
-        this.notificaciones = (List<NotificacionDomain>) UtilDefaultObject.defaultValue(notificaciones,new ArrayList<>());
+        this.notificaciones = notificaciones;
     }
 }

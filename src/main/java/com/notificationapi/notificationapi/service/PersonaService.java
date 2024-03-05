@@ -4,13 +4,14 @@ import com.notificationapi.notificationapi.crossCutting.UtilEmail;
 import com.notificationapi.notificationapi.crossCutting.UtilText;
 import com.notificationapi.notificationapi.crossCutting.UtilUUID;
 import com.notificationapi.notificationapi.domain.PersonaDomain;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Service
+@Repository
 public class PersonaService {
 
 

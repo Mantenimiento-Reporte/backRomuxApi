@@ -8,7 +8,9 @@ import com.notificationapi.notificationapi.crossCutting.UtilUUID;
 import java.util.Date;
 import java.util.UUID;
 
+
 public class NotificacionDomain {
+
     private UUID identificador;
     private UsuarioDomain autor;
     private String titulo;
