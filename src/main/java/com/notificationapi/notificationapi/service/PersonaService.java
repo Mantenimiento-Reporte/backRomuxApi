@@ -4,9 +4,12 @@ import com.notificationapi.notificationapi.crossCutting.UtilEmail;
 import com.notificationapi.notificationapi.crossCutting.UtilText;
 import com.notificationapi.notificationapi.crossCutting.UtilUUID;
 import com.notificationapi.notificationapi.domain.PersonaDomain;
+import com.notificationapi.notificationapi.entity.PersonaEntity;
+import com.notificationapi.notificationapi.repository.PersonaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +18,8 @@ import java.util.UUID;
 public class PersonaService {
 
 
+    @Autowired
+    private PersonaRepository personaRepository;
 
     public PersonaService(){
 
@@ -46,17 +51,14 @@ public class PersonaService {
         return registrosEncontrado;
     }
 
-    public String create(PersonaDomain persona){
-        String messageDialog;
-        if(persona.getPrimerNombre().equals(UtilText.getDefaultTextValue()) || persona.getPrimerApellido().equals(UtilText.getDefaultTextValue()))
-        {
-            return messageDialog = "Error debe ingresar al menos un nombre y apellido";
+    public void save(PersonaDomain persona){
+        var personaEntity = new PersonaEntity(persona.getIdentificador(),persona.getPrimerNombre(),persona.getSegundoNombre(),persona.getPrimerApellido(),persona.getSegundoApellido(),
+                persona.getCorreoElectronico());
+        try {
+            personaRepository.save(personaEntity);
+        }catch (Exception e){
+            throw e;
         }
-        if(persona.getCorreoElectronico().equals(UtilText.getDefaultTextValue()) || persona.getCorreoElectronico().equals(UtilEmail.getDefaultValueMail())){
-            return messageDialog = "Error, debe ingresar un correo electronico válido";
-        }
-        persona.setIdentificador(UUID.randomUUID());
-        return messageDialog = "Usuario registrado con exito";
     }
 
     public String update(PersonaDomain persona){
