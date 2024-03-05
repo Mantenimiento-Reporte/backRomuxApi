@@ -2,12 +2,13 @@ package com.notificationapi.notificationapi.controller;
 
 import com.notificationapi.notificationapi.domain.PersonaDomain;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.notificationapi.notificationapi.service.PersonaService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,8 +32,16 @@ public class PersonaController {
     }
 
     @PostMapping("/persona")
-    public String create(@Validated @RequestBody PersonaDomain persona){
-        return personaService.create(persona);
+    public ResponseEntity<String> save(@Validated @RequestBody PersonaDomain persona) {
+        try {
+            personaService.save(persona);
+            var response = new ResponseEntity<>("Usuario Registrado con exito", HttpStatus.OK);
+            return response;
+        }catch (Exception e){
+            var response = new ResponseEntity<>("Error, correo electrónico ya existente", HttpStatus.BAD_REQUEST);
+            return response;
+        }
+
     }
     @PutMapping("/persona")
     public String update(@RequestParam(required = true) String correoElectronico,@Validated @RequestBody PersonaDomain persona){

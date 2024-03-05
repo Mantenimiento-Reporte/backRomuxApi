@@ -29,7 +29,7 @@ public class PersonaEntity {
     @Column(name = "segundoApellido", length = 30)
     private String segundoApellido;
 
-    @Column(name = "correoElectronico", length = 50)
+    @Column(name = "correoElectronico", length = 50, unique = true)
     private String correoElectronico;
 
     public PersonaEntity(UUID identificador, String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String correoElectronico) {
