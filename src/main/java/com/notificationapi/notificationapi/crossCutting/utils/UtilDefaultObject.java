@@ -1,4 +1,4 @@
-package com.notificationapi.notificationapi.crossCutting;
+package com.notificationapi.notificationapi.crossCutting.utils;
 
 public class UtilDefaultObject {
 

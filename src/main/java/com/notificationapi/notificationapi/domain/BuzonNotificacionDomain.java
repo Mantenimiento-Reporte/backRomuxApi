@@ -1,8 +1,8 @@
 package com.notificationapi.notificationapi.domain;
 
-import com.notificationapi.notificationapi.crossCutting.UtilDefaultObject;
-import com.notificationapi.notificationapi.crossCutting.UtilText;
-import com.notificationapi.notificationapi.crossCutting.UtilUUID;
+import com.notificationapi.notificationapi.crossCutting.utils.UtilDefaultObject;
+import com.notificationapi.notificationapi.crossCutting.utils.UtilText;
+import com.notificationapi.notificationapi.crossCutting.utils.UtilUUID;
 
 import java.util.ArrayList;
 import java.util.List;
