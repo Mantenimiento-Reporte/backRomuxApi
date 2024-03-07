@@ -1,10 +1,9 @@
 package com.notificationapi.notificationapi.domain;
 
-import com.notificationapi.notificationapi.crossCutting.UtilDefaultObject;
-import com.notificationapi.notificationapi.crossCutting.UtilEmail;
-import com.notificationapi.notificationapi.crossCutting.UtilText;
-import com.notificationapi.notificationapi.crossCutting.UtilUUID;
-import lombok.AllArgsConstructor;
+import com.notificationapi.notificationapi.crossCutting.utils.UtilDefaultObject;
+import com.notificationapi.notificationapi.crossCutting.utils.UtilEmail;
+import com.notificationapi.notificationapi.crossCutting.utils.UtilText;
+import com.notificationapi.notificationapi.crossCutting.utils.UtilUUID;
 
 import java.util.UUID;
 

@@ -1,9 +1,11 @@
 package com.notificationapi.notificationapi.controller;
 
 
-import com.notificationapi.notificationapi.domain.PersonaDomain;
+import com.notificationapi.notificationapi.crossCutting.exception.NotificationException;
 import com.notificationapi.notificationapi.domain.UsuarioDomain;
 import com.notificationapi.notificationapi.service.UsuarioService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,8 +29,13 @@ public class UsuarioController {
     }
 
     @PostMapping("/usuario")
-    public String createUsuario(@RequestBody(required = true) UsuarioDomain usuarioDomain){
-        return usuarioService.create(usuarioDomain);
+    public ResponseEntity<String> createUsuario(@RequestBody(required = true) UsuarioDomain usuarioDomain){
+        try {
+            usuarioService.save(usuarioDomain);
+            return new ResponseEntity<>("Usuario Registrado con exito!!", HttpStatus.OK);
+        } catch (NotificationException e) {
+            return new ResponseEntity<>("Error, el correo electronico o la contraseña deben ser validos", HttpStatus.BAD_REQUEST);
+        }
     }
 
 

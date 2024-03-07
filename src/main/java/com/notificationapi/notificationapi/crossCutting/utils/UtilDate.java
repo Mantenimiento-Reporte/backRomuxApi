@@ -1,4 +1,4 @@
-package com.notificationapi.notificationapi.crossCutting;
+package com.notificationapi.notificationapi.crossCutting.utils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
