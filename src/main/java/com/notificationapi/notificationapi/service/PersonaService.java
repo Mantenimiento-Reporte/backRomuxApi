@@ -1,18 +1,26 @@
 package com.notificationapi.notificationapi.service;
 
-import com.notificationapi.notificationapi.crossCutting.UtilEmail;
-import com.notificationapi.notificationapi.crossCutting.UtilText;
-import com.notificationapi.notificationapi.crossCutting.UtilUUID;
+import com.notificationapi.notificationapi.crossCutting.utils.UtilEmail;
+import com.notificationapi.notificationapi.crossCutting.utils.UtilText;
+import com.notificationapi.notificationapi.crossCutting.utils.UtilUUID;
+import com.notificationapi.notificationapi.crossCutting.exception.NotificationException;
+import com.notificationapi.notificationapi.domain.NotificacionDomain;
 import com.notificationapi.notificationapi.domain.PersonaDomain;
 import com.notificationapi.notificationapi.entity.PersonaEntity;
 import com.notificationapi.notificationapi.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.FluentQuery;
 import org.springframework.stereotype.Repository;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Function;
 
 @Repository
 public class PersonaService {
@@ -21,37 +29,28 @@ public class PersonaService {
     @Autowired
     private PersonaRepository personaRepository;
 
+
     public PersonaService(){
 
     }
-
-    public List<PersonaDomain> consult(String correoElectronico){
-        List<PersonaDomain> messageDialog = new ArrayList<>();
-        List<PersonaDomain> registrosEncontrado = new ArrayList<>();
-        PersonaDomain registroPrueba_1 = new PersonaDomain();
-        registroPrueba_1.setCorreoElectronico("alejandrodev117@gmail.com");
-        messageDialog.add(registroPrueba_1);
-        if(!correoElectronico.equals(UtilText.getDefaultTextValue())){
-            messageDialog.add(new PersonaDomain().setPrimerNombre("Error, correo electronico no encontrado"));
-            return messageDialog;
-        }
-        if(correoElectronico.equals(UtilEmail.getDefaultValueMail())){
-            messageDialog.add(new PersonaDomain().setPrimerNombre("Error, correo electronico no valido"));
-            return messageDialog;
-        }
-        for (PersonaDomain puntero : messageDialog){
-            if(puntero.getIdentificador().equals(correoElectronico)) {
-                registrosEncontrado.add(puntero);
-            }
-        }
-        if(messageDialog.isEmpty()){
-            messageDialog.add(new PersonaDomain().setPrimerNombre("Registro no encontrado"));
-            return registrosEncontrado;
-        }
-        return registrosEncontrado;
+    public List<PersonaDomain> findAll(){
+        return personaRepository.findAll().stream().map(new PersonaService()::toDomain).toList();
     }
 
-    public void save(PersonaDomain persona){
+    private PersonaDomain toDomain(PersonaEntity entity){
+        return new PersonaDomain(entity.getIdentificador(),entity.getPrimerNombre(),entity.getSegundoNombre(),entity.getPrimerApellido()
+        ,entity.getSegundoApellido(),entity.getCorreoElectronico());
+    }
+
+    public PersonaDomain consult(String correoElectronico){
+        return toDomain(personaRepository.findBycorreoElectronico(correoElectronico));
+    }
+
+    public void save(PersonaDomain persona) throws NotificationException {
+        if(!datosSonValidos(persona)){
+            throw new NotificationException();
+        }
+
         var personaEntity = new PersonaEntity(persona.getIdentificador(),persona.getPrimerNombre(),persona.getSegundoNombre(),persona.getPrimerApellido(),persona.getSegundoApellido(),
                 persona.getCorreoElectronico());
         try {
@@ -73,5 +72,13 @@ public class PersonaService {
             return "identificador no valido";
         }
         return "se conecta bien";
+    }
+
+
+    private boolean datosSonValidos(PersonaDomain persona){
+        if(persona.getPrimerNombre().equals(UtilText.getDefaultTextValue()) || persona.getPrimerApellido().equals(UtilText.getDefaultTextValue())){
+            return false;
+        }
+        return  true;
     }
 }

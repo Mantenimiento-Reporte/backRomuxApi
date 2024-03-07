@@ -18,10 +18,10 @@ public class NotificacionService {
     private NotificacionRepository notificacionRepository;
 
     public List<NotificacionDomain> findAll(){
-        return notificacionRepository.findAll().stream().map(new NotificacionService()::getDomain).toList();
+        return notificacionRepository.findAll().stream().map(new NotificacionService()::toDomain).toList();
     }
 
-    public NotificacionDomain getDomain(NotificacionEntity entity){
+    private NotificacionDomain toDomain(NotificacionEntity entity){
         var autor = new UsuarioDomain(entity.getAutor().getIdentificador(), entity.getAutor().getCorreoElectronico(), entity.getAutor().getContraseña());
         return new NotificacionDomain(entity.getIdentificador(), autor, entity.getTitulo(), entity.getContenido(), entity.getFechaCreacion(), entity.getEstado(), entity.getFechaProgramada(), entity.getTipoEntrega());
     }
@@ -29,7 +29,7 @@ public class NotificacionService {
     public NotificacionDomain findById(UUID identificador){
         var entity = notificacionRepository.findById(identificador).orElse(null);
         assert entity != null;
-        return getDomain(entity);
+        return toDomain(entity);
     }
 
     public UUID saveNotificacion(NotificacionDomain notificacion){

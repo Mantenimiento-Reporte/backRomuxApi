@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.UUID;
 
@@ -17,10 +18,13 @@ public class UsuarioEntity {
     @Column(name = "identificador")
     private UUID identificador;
 
-    @Column(name = "correoElectronico", length = 50)
+
+    @NotNull
+    @Column(name = "correoElectronico",length = 50,unique = true)
     private String correoElectronico;
 
-    @Column(name = "contraseña", length = 30)
+    @NotNull
+    @Column(name = "contrasena", length = 30)
     private String contraseña;
 
     public UsuarioEntity(UUID identificador, String correoElectronico, String contraseña) {

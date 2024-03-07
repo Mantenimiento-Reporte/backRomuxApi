@@ -5,6 +5,7 @@ import com.notificationapi.notificationapi.domain.NotificacionDomain;
 import com.notificationapi.notificationapi.domain.UsuarioDomain;
 import com.notificationapi.notificationapi.entity.BuzonNotificacionEntity;
 import com.notificationapi.notificationapi.entity.NotificacionEntity;
+import com.notificationapi.notificationapi.entity.PersonaEntity;
 import com.notificationapi.notificationapi.entity.UsuarioEntity;
 import com.notificationapi.notificationapi.repository.BuzonNotificacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class BuzonNotificacionService {
     private BuzonNotificacionRepository buzonNotificacionRepository;
 
     public BuzonNotificacionDomain getDomain(BuzonNotificacionEntity entity){
-        var propietario = new UsuarioDomain(entity.getPropietario().getIdentificador(), entity.getPropietario().getCorreoElectronico(), entity.getPropietario().getContraseña());
+        var propietario = new UsuarioDomain(entity.getPropietario().getIdentificador(),entity.getPropietario().getCorreoElectronico(), entity.getPropietario().getContraseña());
         return new BuzonNotificacionDomain(entity.getIdentificador(), propietario, entity.getNombre(), getNotificaciones(entity.getNotificaciones()));
     }
 
