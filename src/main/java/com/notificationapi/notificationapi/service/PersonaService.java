@@ -41,6 +41,10 @@ public class PersonaService {
         return new PersonaDomain(entity.getIdentificador(),entity.getPrimerNombre(),entity.getSegundoNombre(),entity.getPrimerApellido()
         ,entity.getSegundoApellido(),entity.getCorreoElectronico());
     }
+    private PersonaEntity toEntity(PersonaDomain domain){
+        return new PersonaEntity(domain.getIdentificador(),domain.getPrimerNombre(),domain.getSegundoNombre(),domain.getPrimerApellido()
+                ,domain.getSegundoApellido(),domain.getCorreoElectronico());
+    }
 
     public PersonaDomain consult(String correoElectronico){
         return toDomain(personaRepository.findBycorreoElectronico(correoElectronico));
@@ -50,28 +54,34 @@ public class PersonaService {
         if(!datosSonValidos(persona)){
             throw new NotificationException();
         }
-
-        var personaEntity = new PersonaEntity(persona.getIdentificador(),persona.getPrimerNombre(),persona.getSegundoNombre(),persona.getPrimerApellido(),persona.getSegundoApellido(),
-                persona.getCorreoElectronico());
         try {
-            personaRepository.save(personaEntity);
+            personaRepository.save(toEntity(persona));
         }catch (Exception e){
             throw e;
         }
     }
 
-    public String update(PersonaDomain persona){
+    public void update(PersonaDomain persona) throws NotificationException {
         if(persona.getCorreoElectronico().equals(UtilText.getDefaultTextValue()) || persona.getCorreoElectronico().equals(UtilEmail.getDefaultValueMail())){
-            return "Error, correo electronico no válido";
+            throw new NotificationException();
         }
-        return "se conectó bien";
+        try{
+            personaRepository.updateBycorreoElectronico(persona.getPrimerApellido(),persona.getPrimerNombre(),persona.getSegundoApellido(),persona.getSegundoNombre(),persona.getCorreoElectronico());
+        }catch (Exception e){
+            e.printStackTrace();
+            throw e;
+        }
     }
 
-    public String delete(UUID identificador){
-        if(identificador.equals(UtilUUID.getUuidDefaultValue())){
-            return "identificador no valido";
+    public void delete(UUID identificador) throws NotificationException {
+        if(identificador.equals(UtilUUID.getUuidDefaultValue())) {
+            throw new NotificationException();
         }
-        return "se conecta bien";
+        try {
+            personaRepository.deleteById(identificador);
+        }catch (Exception e){
+            throw e;
+        }
     }
 
 
