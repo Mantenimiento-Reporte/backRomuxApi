@@ -57,13 +57,27 @@ public class PersonaController {
 
     }
     @PutMapping("/persona")
-    public String update(@RequestParam(required = true) String correoElectronico,@Validated @RequestBody PersonaDomain persona){
-        persona.setCorreoElectronico(correoElectronico);
-        return personaService.update(persona);
+    public ResponseEntity<String> update(@RequestParam(required = true) String correoElectronico,@Validated @RequestBody PersonaDomain persona){
+        try {
+            persona.setCorreoElectronico(correoElectronico);
+            personaService.update(persona);
+            return new ResponseEntity<>("Datos actualizados con Exito!!",HttpStatus.BAD_REQUEST);
+        }catch (NotificationException n){
+            return new ResponseEntity<>("Error, el correo electronico no es valido",HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            return new ResponseEntity<>("Error correo electronico no encontrado",HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping("/persona")
-    public String delete(@RequestParam(required = true) UUID identificador){
-        return personaService.delete(identificador);
+    public ResponseEntity<String> delete(@RequestParam(required = true) UUID identificador){
+        try {
+            personaService.delete(identificador);
+            return new ResponseEntity<>("Usuario Eliminado con Exito!!",HttpStatus.BAD_REQUEST);
+        }catch (NotificationException n){
+            return new ResponseEntity<>("Error,el identificador no es valido",HttpStatus.BAD_REQUEST);
+        }catch (Exception e){
+            return new ResponseEntity<>("Error identificador no encontrado",HttpStatus.BAD_REQUEST);
+        }
     }
 }
