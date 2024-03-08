@@ -25,7 +25,13 @@ public class NotificacionController {
 
     @GetMapping("/notificacion")
     public List<NotificacionDomain> get(){
+
         return notificacionService.findAll();
+    }
+
+    @GetMapping("/notificacion/uuid")
+    public NotificacionDomain getNotificacion(UUID identificador){
+        return notificacionService.findById(identificador);
     }
 
     @PostMapping("/notificacion")
@@ -34,8 +40,8 @@ public class NotificacionController {
     }
 
     @DeleteMapping("/notificacion")
-    public List<ResponseEntity<NotificacionDomain>> delete(@RequestParam(required = true) UUID identificador){
-        return new ArrayList<>();
+    public void delete(@RequestParam(required = true) UUID identificador){
+        notificacionService.deleteNotificacion(identificador);
     }
 
 

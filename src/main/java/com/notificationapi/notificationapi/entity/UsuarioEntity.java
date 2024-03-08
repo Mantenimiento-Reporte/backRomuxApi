@@ -20,7 +20,7 @@ public class UsuarioEntity {
 
 
     @NotNull
-    @Column(name = "correoElectronico",length = 50,unique = true)
+    @Column(name = "correoElectronico",length = 50)
     private String correoElectronico;
 
     @NotNull

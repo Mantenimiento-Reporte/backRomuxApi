@@ -20,8 +20,6 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public UsuarioService() {
-    }
 
     public List<UsuarioDomain> consult(String correoElectronico){
         List<UsuarioDomain> messageDialog = new ArrayList<>();
@@ -52,7 +50,7 @@ public class UsuarioService {
     public void save(UsuarioDomain usuario) throws NotificationException {
         if(!datosSonValidos(usuario)){
             throw new NotificationException();
-        }
+       }
         var usuarioEntity = new UsuarioEntity(usuario.getIdentificador(),usuario.getCorreoElectronico(),usuario.getContraseña());
             usuarioRepository.save(usuarioEntity);
 
