@@ -4,6 +4,7 @@ package com.notificationapi.notificationapi.controller;
 import com.notificationapi.notificationapi.crossCutting.exception.NotificationException;
 import com.notificationapi.notificationapi.domain.UsuarioDomain;
 import com.notificationapi.notificationapi.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @RequestMapping("/v1")
 public class UsuarioController {
 
+    @Autowired
     private UsuarioService usuarioService = new UsuarioService();
     @GetMapping("/dummy_usuario")
     public UsuarioDomain dummy(){
