@@ -2,6 +2,7 @@ package com.notificationapi.notificationapi.service;
 
 import com.notificationapi.notificationapi.domain.BuzonNotificacionDomain;
 import com.notificationapi.notificationapi.domain.NotificacionDomain;
+import com.notificationapi.notificationapi.domain.PersonaDomain;
 import com.notificationapi.notificationapi.domain.UsuarioDomain;
 import com.notificationapi.notificationapi.entity.BuzonNotificacionEntity;
 import com.notificationapi.notificationapi.entity.NotificacionEntity;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -22,8 +24,14 @@ public class BuzonNotificacionService {
     @Autowired
     private BuzonNotificacionRepository buzonNotificacionRepository;
 
+    public List<BuzonNotificacionDomain> getBuzonNotificacionesPorPropietario(String correo){
+        var entities = buzonNotificacionRepository.findAll();
+        var notificaciones = entities.stream().filter(notificacion->notificacion.getPropietario().getCorreoElectronico().equals(correo)).toList();
+        return notificaciones.stream().map(new BuzonNotificacionService()::getDomain).toList();
+    }
+
     public BuzonNotificacionDomain getDomain(BuzonNotificacionEntity entity){
-        var propietario = new UsuarioDomain(entity.getPropietario().getIdentificador(),entity.getPropietario().getCorreoElectronico(), entity.getPropietario().getContraseña());
+        var propietario = new PersonaDomain(entity.getPropietario().getIdentificador(),entity.getPropietario().getPrimerNombre(), entity.getPropietario().getSegundoNombre(), entity.getPropietario().getPrimerApellido(), entity.getPropietario().getSegundoApellido(), entity.getPropietario().getCorreoElectronico());
         return new BuzonNotificacionDomain(entity.getIdentificador(), propietario, entity.getNombre(), getNotificaciones(entity.getNotificaciones()));
     }
 
@@ -32,8 +40,9 @@ public class BuzonNotificacionService {
     }
 
     private NotificacionDomain getNotificacion(NotificacionEntity notificacion){
-        var usuario = new UsuarioDomain(notificacion.getAutor().getIdentificador(), notificacion.getAutor().getCorreoElectronico(), notificacion.getAutor().getContraseña());
-        return new NotificacionDomain(notificacion.getIdentificador(), usuario, notificacion.getTitulo(), notificacion.getContenido(), notificacion.getFechaCreacion(), notificacion.getEstado(), notificacion.getFechaProgramada(), notificacion.getTipoEntrega());
+        var usuario = new PersonaDomain(notificacion.getAutor().getIdentificador(), notificacion.getAutor().getPrimerNombre(), notificacion.getAutor().getSegundoNombre(), notificacion.getAutor().getPrimerApellido(), notificacion.getAutor().getSegundoApellido(), notificacion.getAutor().getCorreoElectronico());
+        var usuarioDestino = new ArrayList<>();
+        return new NotificacionDomain(notificacion.getIdentificador(), usuario, notificacion.getTitulo(), notificacion.getContenido(), notificacion.getFechaCreacion(), notificacion.getEstado(), notificacion.getFechaProgramada(), notificacion.getTipoEntrega(), notificacion.getDestinatario().stream().map(new BuzonNotificacionService()::personaToDomain).toList());
     }
 
     public List<BuzonNotificacionDomain> findAll(){
@@ -43,13 +52,13 @@ public class BuzonNotificacionService {
 
     public BuzonNotificacionDomain findById(UUID identificador){
         var entity = buzonNotificacionRepository.findById(identificador).orElse(null);
-        var propietario = new UsuarioDomain(entity.getPropietario().getIdentificador(), entity.getPropietario().getCorreoElectronico(), entity.getPropietario().getContraseña());
+        var propietario = new PersonaDomain(entity.getPropietario().getIdentificador(), entity.getPropietario().getPrimerNombre(), entity.getPropietario().getSegundoNombre(), entity.getPropietario().getPrimerApellido(), entity.getPropietario().getSegundoApellido(), entity.getPropietario().getCorreoElectronico());
         assert entity != null;
         return new BuzonNotificacionDomain(entity.getIdentificador(), propietario, entity.getNombre(), getNotificaciones(entity.getNotificaciones()));
     }
 
     public UUID saveBuzonNotificacion(BuzonNotificacionDomain buzonNotificacion){
-        var propietario = new UsuarioEntity(buzonNotificacion.getPropietario().getIdentificador(), buzonNotificacion.getPropietario().getCorreoElectronico(), buzonNotificacion.getPropietario().getContraseña());
+        var propietario = new PersonaEntity(buzonNotificacion.getPropietario().getIdentificador(), buzonNotificacion.getPropietario().getPrimerNombre(), buzonNotificacion.getPropietario().getSegundoNombre(), buzonNotificacion.getPropietario().getPrimerApellido(), buzonNotificacion.getPropietario().getSegundoApellido(), buzonNotificacion.getPropietario().getCorreoElectronico());
         var entity = new BuzonNotificacionEntity(buzonNotificacion.getIdentificador(), propietario, buzonNotificacion.getNombre(), getNotificacionesEntity(buzonNotificacion.getNotificaciones()));
         return buzonNotificacionRepository.save(entity).getIdentificador();
     }
@@ -59,8 +68,17 @@ public class BuzonNotificacionService {
     }
 
     private NotificacionEntity getNotificacionEntity(NotificacionDomain notificacion){
-        var usuario = new UsuarioEntity(notificacion.getAutor().getIdentificador(), notificacion.getAutor().getCorreoElectronico(), notificacion.getAutor().getContraseña());
-        return new NotificacionEntity(notificacion.getIdentificador(), usuario, notificacion.getTitulo(), notificacion.getContenido(), notificacion.getFechaCreacion(), notificacion.getEstado(), notificacion.getFechaProgramada(), notificacion.getTipoEntrega());
+        var usuario = new PersonaEntity(notificacion.getAutor().getIdentificador(), notificacion.getAutor().getPrimerNombre(), notificacion.getAutor().getSegundoNombre(), notificacion.getAutor().getPrimerApellido(), notificacion.getAutor().getSegundoApellido(), notificacion.getAutor().getCorreoElectronico());
+        var usuarioDestino = new PersonaEntity(notificacion.getAutor().getIdentificador(), notificacion.getAutor().getPrimerNombre(), notificacion.getAutor().getSegundoNombre(), notificacion.getAutor().getPrimerApellido(), notificacion.getAutor().getSegundoApellido(), notificacion.getAutor().getCorreoElectronico());
+        return new NotificacionEntity(notificacion.getIdentificador(), usuario, notificacion.getTitulo(), notificacion.getContenido(), notificacion.getFechaCreacion(), notificacion.getEstado(), notificacion.getFechaProgramada(), notificacion.getTipoEntrega(), notificacion.getDestinatario().stream().map(new BuzonNotificacionService()::personaToEntity).toList());
+    }
+
+    private PersonaDomain personaToDomain(PersonaEntity entity){
+        return new PersonaDomain(entity.getIdentificador(), entity.getPrimerNombre(), entity.getSegundoNombre(), entity.getPrimerApellido(), entity.getSegundoApellido(), entity.getCorreoElectronico());
+    }
+
+    private PersonaEntity personaToEntity(PersonaDomain domain){
+        return new PersonaEntity(domain.getIdentificador(), domain.getPrimerNombre(), domain.getSegundoNombre(), domain.getPrimerApellido(), domain.getSegundoApellido(), domain.getCorreoElectronico());
     }
 
 

@@ -5,14 +5,16 @@ import com.notificationapi.notificationapi.crossCutting.utils.UtilDefaultObject;
 import com.notificationapi.notificationapi.crossCutting.utils.UtilText;
 import com.notificationapi.notificationapi.crossCutting.utils.UtilUUID;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 
 public class NotificacionDomain {
 
     private UUID identificador;
-    private UsuarioDomain autor;
+    private PersonaDomain autor;
     private String titulo;
     private String contenido;
     private Date fechaCreacion;
@@ -20,19 +22,22 @@ public class NotificacionDomain {
     private Date fechaProgramada;
     private String tipoEntrega;
 
+    private List<PersonaDomain> destinatario;
+
 
     public NotificacionDomain() {
         setIdentificador(UtilUUID.getUuidDefaultValue());
-        setAutor(new UsuarioDomain());
+        setAutor(new PersonaDomain());
         setTitulo(UtilText.getDefaultTextValue());
         setContenido(UtilText.getDefaultTextValue());
         setFechaCreacion(UtilDate.getDefaultValueDate());
         setEstado(UtilText.getDefaultTextValue());
         setFechaProgramada(UtilDate.getDefaultValueDate());
         setTipoEntrega(UtilText.getDefaultTextValue());
+        setDestinatario(new ArrayList<>());
     }
 
-    public NotificacionDomain(UUID identificador, UsuarioDomain autor, String titulo, String contenido, Date fechaCreacion, String estado, Date fechaProgramada, String tipoEntrega) {
+    public NotificacionDomain(UUID identificador, PersonaDomain autor, String titulo, String contenido, Date fechaCreacion, String estado, Date fechaProgramada, String tipoEntrega, List<PersonaDomain> destinatario) {
         this.identificador = identificador;
         this.autor = autor;
         this.titulo = titulo;
@@ -41,6 +46,7 @@ public class NotificacionDomain {
         this.estado = estado;
         this.fechaProgramada = fechaProgramada;
         this.tipoEntrega = tipoEntrega;
+        this.destinatario = destinatario;
     }
 
     public UUID getIdentificador() {
@@ -51,12 +57,12 @@ public class NotificacionDomain {
         this.identificador = (UUID) UtilDefaultObject.defaultValue(identificador,UtilUUID.getUuidDefaultValue());
     }
 
-    public UsuarioDomain getAutor() {
+    public PersonaDomain getAutor() {
         return autor;
     }
 
-    public void setAutor(UsuarioDomain autor) {
-        this.autor = (UsuarioDomain) UtilDefaultObject.defaultValue(autor,new UsuarioDomain());
+    public void setAutor(PersonaDomain autor) {
+        this.autor = (PersonaDomain) UtilDefaultObject.defaultValue(autor,new PersonaDomain());
     }
 
     public String getTitulo() {
@@ -107,5 +113,13 @@ public class NotificacionDomain {
     public void setTipoEntrega(String tipoEntrega) {
 
         this.tipoEntrega = (String) UtilDefaultObject.defaultValue(tipoEntrega,UtilText.getDefaultTextValue());
+    }
+
+    public List<PersonaDomain> getDestinatario() {
+        return destinatario;
+    }
+
+    public void setDestinatario(List<PersonaDomain> destinatario) {
+        this.destinatario = destinatario;
     }
 }

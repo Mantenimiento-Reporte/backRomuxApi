@@ -16,7 +16,7 @@ public class BuzonNotificacionEntity {
 
     @OneToOne
     @JoinColumn(name = "persona")
-    private UsuarioEntity propietario;
+    private PersonaEntity propietario;
 
     @Column(name = "nombre", length = 30)
     private String nombre;
@@ -25,7 +25,7 @@ public class BuzonNotificacionEntity {
     @JoinColumn(name = "notificaciones")
     private List<NotificacionEntity> notificaciones;
 
-    public BuzonNotificacionEntity(UUID identificador, UsuarioEntity propietario, String nombre, List<NotificacionEntity> notificaciones) {
+    public BuzonNotificacionEntity(UUID identificador, PersonaEntity propietario, String nombre, List<NotificacionEntity> notificaciones) {
         this.identificador = identificador;
         this.propietario = propietario;
         this.nombre = nombre;
@@ -43,11 +43,11 @@ public class BuzonNotificacionEntity {
         this.identificador = identificador;
     }
 
-    public UsuarioEntity getPropietario() {
+    public PersonaEntity getPropietario() {
         return propietario;
     }
 
-    public void setPropietario(UsuarioEntity propietario) {
+    public void setPropietario(PersonaEntity propietario) {
         this.propietario = propietario;
     }
 

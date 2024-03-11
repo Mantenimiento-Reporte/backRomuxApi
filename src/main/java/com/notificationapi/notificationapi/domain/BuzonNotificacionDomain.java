@@ -11,18 +11,18 @@ import java.util.UUID;
 public class BuzonNotificacionDomain {
 
     private UUID identificador;
-    private UsuarioDomain propietario;
+    private PersonaDomain propietario;
     private String nombre;
     private List<NotificacionDomain> notificaciones;
 
     public BuzonNotificacionDomain() {
         setIdentificador(UtilUUID.getUuidDefaultValue());
-        setPropietario(new UsuarioDomain());
+        setPropietario(new PersonaDomain());
         setNombre(UtilText.getDefaultTextValue());
         setNotificaciones(new ArrayList<>());
     }
 
-    public BuzonNotificacionDomain(UUID identificador, UsuarioDomain propietario, String nombre, List<NotificacionDomain> notificaciones) {
+    public BuzonNotificacionDomain(UUID identificador, PersonaDomain propietario, String nombre, List<NotificacionDomain> notificaciones) {
         this.identificador = identificador;
         this.propietario = propietario;
         this.nombre = nombre;
@@ -38,12 +38,12 @@ public class BuzonNotificacionDomain {
         this.identificador = (UUID) UtilDefaultObject.defaultValue(identificador, UtilUUID.getUuidDefaultValue());
     }
 
-    public UsuarioDomain getPropietario() {
+    public PersonaDomain getPropietario() {
         return propietario;
     }
 
-    public void setPropietario(UsuarioDomain propietario) {
-        this.propietario = (UsuarioDomain) UtilDefaultObject.defaultValue(propietario,new UsuarioDomain());
+    public void setPropietario(PersonaDomain propietario) {
+        this.propietario = (PersonaDomain) UtilDefaultObject.defaultValue(propietario,new UsuarioDomain());
     }
 
     public String getNombre() {

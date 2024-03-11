@@ -1,8 +1,10 @@
 package com.notificationapi.notificationapi.entity;
 
+import com.notificationapi.notificationapi.domain.UsuarioDomain;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -15,7 +17,7 @@ public class NotificacionEntity {
 
     @OneToOne
     @JoinColumn(name = "persona")
-    private UsuarioEntity autor;
+    private PersonaEntity autor;
 
     @Column(name = "titulo", length = 50)
     private String titulo;
@@ -35,7 +37,11 @@ public class NotificacionEntity {
     @Column(name = "tipoEntrega", length = 30)
     private String tipoEntrega;
 
-    public NotificacionEntity(UUID identificador, UsuarioEntity autor, String titulo, String contenido, Date fechaCreacion, String estado, Date fechaProgramada, String tipoEntrega) {
+    @OneToMany
+    @Column(name = "destinatario")
+    private List<PersonaEntity> destinatario;
+
+    public NotificacionEntity(UUID identificador, PersonaEntity autor, String titulo, String contenido, Date fechaCreacion, String estado, Date fechaProgramada, String tipoEntrega, List<PersonaEntity> destinatario) {
         this.identificador = identificador;
         this.autor = autor;
         this.titulo = titulo;
@@ -44,6 +50,7 @@ public class NotificacionEntity {
         this.estado = estado;
         this.fechaProgramada = fechaProgramada;
         this.tipoEntrega = tipoEntrega;
+        this.destinatario = destinatario;
     }
 
     public NotificacionEntity() {
@@ -53,7 +60,7 @@ public class NotificacionEntity {
         return identificador;
     }
 
-    public UsuarioEntity getAutor() {
+    public PersonaEntity getAutor() {
         return autor;
     }
 
@@ -85,7 +92,7 @@ public class NotificacionEntity {
         this.identificador = identificador;
     }
 
-    public void setAutor(UsuarioEntity autor) {
+    public void setAutor(PersonaEntity autor) {
         this.autor = autor;
     }
 
@@ -111,5 +118,13 @@ public class NotificacionEntity {
 
     public void setTipoEntrega(String tipoEntrega) {
         this.tipoEntrega = tipoEntrega;
+    }
+
+    public List<PersonaEntity> getDestinatario() {
+        return destinatario;
+    }
+
+    public void setDestinatario(List<PersonaEntity> destinatario) {
+        this.destinatario = destinatario;
     }
 }
