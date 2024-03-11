@@ -4,7 +4,9 @@ import com.notificationapi.notificationapi.crossCutting.exception.NotificationEx
 import com.notificationapi.notificationapi.crossCutting.utils.UtilEmail;
 import com.notificationapi.notificationapi.crossCutting.utils.UtilText;
 import com.notificationapi.notificationapi.crossCutting.utils.UtilUUID;
+import com.notificationapi.notificationapi.domain.PersonaDomain;
 import com.notificationapi.notificationapi.domain.UsuarioDomain;
+import com.notificationapi.notificationapi.entity.PersonaEntity;
 import com.notificationapi.notificationapi.entity.UsuarioEntity;
 import com.notificationapi.notificationapi.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,53 +23,55 @@ public class UsuarioService {
     private UsuarioRepository usuarioRepository;
 
 
-    public List<UsuarioDomain> consult(String correoElectronico){
-        List<UsuarioDomain> messageDialog = new ArrayList<>();
-        List<UsuarioDomain> registrosEncontrado = new ArrayList<>();
-        UsuarioDomain registroPrueba_1 = new UsuarioDomain();
-        registroPrueba_1.setCorreoElectronico("alejandrodev117@gmail.com");
-        messageDialog.add(registroPrueba_1);
-        if(!correoElectronico.equals(UtilText.getDefaultTextValue())){
-            messageDialog.add(new UsuarioDomain().setCorreoElectronico("Error, correo electronico no ingresado"));
-            return messageDialog;
-        }
-        if(correoElectronico.equals(UtilEmail.getDefaultValueMail())){
-            messageDialog.add(new UsuarioDomain().setCorreoElectronico("Error, correo electronico no valido"));
-            return messageDialog;
-        }
-        for (UsuarioDomain puntero : messageDialog){
-            if(puntero.getIdentificador().equals(correoElectronico)) {
-                registrosEncontrado.add(puntero);
-            }
-        }
-        if(messageDialog.isEmpty()){
-            messageDialog.add(new UsuarioDomain().setCorreoElectronico("Registro no encontrado"));
-            return registrosEncontrado;
-        }
-        return registrosEncontrado;
+    public List<UsuarioDomain> findAll(){
+        return usuarioRepository.findAll().stream().map(new UsuarioService()::toDomain).toList();
+    }
+    private UsuarioDomain toDomain(UsuarioEntity entity){
+        return new UsuarioDomain(entity.getIdentificador(),entity.getCorreoElectronico(),entity.getContraseña());
+
+    }
+    private UsuarioEntity toEntity(UsuarioDomain domain){
+        return new UsuarioEntity(domain.getIdentificador(),domain.getCorreoElectronico(),domain.getContraseña());
+    }
+
+    public UsuarioDomain consult(String correoElectronico){
+        return toDomain(usuarioRepository.findByCorreoElectronico(correoElectronico));
     }
 
     public void save(UsuarioDomain usuario) throws NotificationException {
         if(!datosSonValidos(usuario)){
             throw new NotificationException();
-       }
-        var usuarioEntity = new UsuarioEntity(usuario.getIdentificador(),usuario.getCorreoElectronico(),usuario.getContraseña());
-            usuarioRepository.save(usuarioEntity);
-
-    }
-
-    public String update(String correoElectronico, String contraseña){
-        if(correoElectronico.equals(UtilText.getDefaultTextValue()) || correoElectronico.equals(UtilEmail.getDefaultValueMail())){
-            return "Error, correo electronico no válido";
         }
-        return "se conectó bien";
+        try{
+            usuarioRepository.save(toEntity(usuario));
+        }catch (Exception e){
+            System.out.println("Entra aqui?");
+            throw e;
+        }
+
     }
 
-    public String delete(UUID identificador){
+    public void update(String correoElectronico, String contraseña) throws NotificationException {
+        System.out.println(contraseña+"service");
+        if(contraseña.equals(UtilText.getDefaultTextValue())){
+            throw new NotificationException();
+        }
+        try {
+            usuarioRepository.updateByCorreoElectronico(contraseña, correoElectronico);
+        }catch (Exception e){
+            throw e;
+        }
+    }
+
+    public void delete(UUID identificador) throws NotificationException {
         if(identificador.equals(UtilUUID.getUuidDefaultValue())){
-            return "identificador no valido";
+            throw new NotificationException();
         }
-        return "se conecta bien";
+        try{
+            usuarioRepository.deleteById(identificador);
+        }catch (Exception e){
+            throw e;
+        }
     }
 
     private boolean datosSonValidos(UsuarioDomain usuario){
