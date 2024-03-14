@@ -23,6 +23,11 @@ public class NotificacionController {
     @Autowired
     private NotificacionService notificacionService;
 
+    @GetMapping("/dummy_notificacion")
+    public NotificacionDomain dummy(){
+        return new NotificacionDomain();
+    }
+
     @GetMapping("/notificacion")
     public List<NotificacionDomain> get(){
 
