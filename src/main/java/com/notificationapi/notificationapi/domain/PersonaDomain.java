@@ -40,7 +40,7 @@ public class PersonaDomain {
         setSegundoApellido(UtilText.getDefaultTextValue());
         setCorreoElectronico(UtilEmail.getDefaultValueMail());
 
-    };
+    }
     public UUID getIdentificador() {
         return identificador;
     }

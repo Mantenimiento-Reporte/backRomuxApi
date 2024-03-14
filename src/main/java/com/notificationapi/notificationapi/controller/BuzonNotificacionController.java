@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,7 +28,7 @@ public class BuzonNotificacionController {
     }
 
     @GetMapping("/buzonnotificacion")
-    public List<BuzonNotificacionDomain> get(@RequestParam(required = true) String nombre){return null;}
+    public List<BuzonNotificacionDomain> get(@RequestParam(required = true) String nombre){return new ArrayList<>();}
 
     @PostMapping("/buzonnotificacion")
     public ResponseEntity<UUID> create(@Validated @RequestBody BuzonNotificacionDomain buzonNotificacion){
@@ -36,12 +37,12 @@ public class BuzonNotificacionController {
 
     @PutMapping("/buzonnotificacion")
     public List<ResponseEntity<BuzonNotificacionDomain>> update(@RequestParam(required = true) String persona,@Validated @RequestBody BuzonNotificacionDomain nombre){
-        return null;
+        return new ArrayList<>();
     }
 
     @DeleteMapping("/buzonnotificacion")
     public List<ResponseEntity<BuzonNotificacionDomain>> delete(@RequestParam(required = true) UUID identificador){
-        return null;
+        return new ArrayList<>();
     }
 
 }

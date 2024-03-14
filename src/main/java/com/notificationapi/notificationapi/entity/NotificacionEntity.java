@@ -1,6 +1,5 @@
 package com.notificationapi.notificationapi.entity;
 
-import com.notificationapi.notificationapi.domain.UsuarioDomain;
 import jakarta.persistence.*;
 
 import java.util.Date;

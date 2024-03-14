@@ -4,15 +4,12 @@ import com.notificationapi.notificationapi.crossCutting.exception.NotificationEx
 import com.notificationapi.notificationapi.crossCutting.utils.UtilEmail;
 import com.notificationapi.notificationapi.crossCutting.utils.UtilText;
 import com.notificationapi.notificationapi.crossCutting.utils.UtilUUID;
-import com.notificationapi.notificationapi.domain.PersonaDomain;
 import com.notificationapi.notificationapi.domain.UsuarioDomain;
-import com.notificationapi.notificationapi.entity.PersonaEntity;
 import com.notificationapi.notificationapi.entity.UsuarioEntity;
 import com.notificationapi.notificationapi.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 

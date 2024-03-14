@@ -1,12 +1,9 @@
 package com.notificationapi.notificationapi.service;
 
-import com.notificationapi.notificationapi.domain.BuzonNotificacionDomain;
 import com.notificationapi.notificationapi.domain.NotificacionDomain;
 import com.notificationapi.notificationapi.domain.PersonaDomain;
-import com.notificationapi.notificationapi.domain.UsuarioDomain;
 import com.notificationapi.notificationapi.entity.NotificacionEntity;
 import com.notificationapi.notificationapi.entity.PersonaEntity;
-import com.notificationapi.notificationapi.entity.UsuarioEntity;
 import com.notificationapi.notificationapi.repository.NotificacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -42,7 +39,6 @@ public class NotificacionService {
     private PersonaEntity personaToEntity(PersonaDomain domain){
         return new PersonaEntity(domain.getIdentificador(), domain.getPrimerNombre(), domain.getSegundoNombre(), domain.getPrimerApellido(), domain.getSegundoApellido(), domain.getCorreoElectronico());
     }
-
 
     public NotificacionDomain findById(UUID identificador){
         var entity = notificacionRepository.findById(identificador).orElse(null);

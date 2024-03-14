@@ -2,17 +2,13 @@ package com.notificationapi.notificationapi.controller;
 
 import com.notificationapi.notificationapi.crossCutting.exception.NotificationException;
 import com.notificationapi.notificationapi.domain.PersonaDomain;
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.notificationapi.notificationapi.service.PersonaService;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
