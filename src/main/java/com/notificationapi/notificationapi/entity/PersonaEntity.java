@@ -1,7 +1,6 @@
 package com.notificationapi.notificationapi.entity;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
 
 import java.util.UUID;
 
@@ -13,21 +12,18 @@ public class PersonaEntity {
     @Column(name = "identificador")
     private UUID identificador;
 
-    @NotNull
     @Column(name = "primerNombre", length = 30)
     private String primerNombre;
 
     @Column(name = "segundoNombre", length = 30)
     private String segundoNombre;
 
-    @NotNull
     @Column(name = "primerApellido", length = 30)
     private String primerApellido;
 
     @Column(name = "segundoApellido", length = 30)
     private String segundoApellido;
 
-    @NotNull
     @Column(name = "correoElectronico", length = 50, unique = true)
     private String correoElectronico;
 
