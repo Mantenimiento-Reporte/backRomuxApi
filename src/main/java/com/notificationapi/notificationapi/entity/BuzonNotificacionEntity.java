@@ -1,6 +1,6 @@
 package com.notificationapi.notificationapi.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -10,7 +10,6 @@ import java.util.UUID;
 public class BuzonNotificacionEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "identificador")
     private UUID identificador;
 
