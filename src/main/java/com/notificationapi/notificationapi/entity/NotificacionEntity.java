@@ -1,6 +1,6 @@
 package com.notificationapi.notificationapi.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import java.util.Date;
 import java.util.List;
@@ -10,7 +10,6 @@ import java.util.UUID;
 @Table(name = "notificacion")
 public class NotificacionEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "identificador")
     private UUID identificador;
 

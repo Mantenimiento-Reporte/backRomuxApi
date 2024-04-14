@@ -1,7 +1,7 @@
 package com.notificationapi.notificationapi.entity;
 
-import jakarta.persistence.*;
-import org.antlr.v4.runtime.misc.NotNull;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import java.util.UUID;
 
@@ -10,7 +10,6 @@ import java.util.UUID;
 public class UsuarioEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "identificador")
     private UUID identificador;
 
