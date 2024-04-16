@@ -73,7 +73,7 @@ public class UsuarioService {
     }
 
     private boolean datosSonValidos(UsuarioDomain usuario){
-        if(usuario.getCorreoElectronico().equals(UtilEmail.getDefaultValueMail()) || usuario.getCorreoElectronico().equals(UtilEmail.getDefaultValueMail())){
+        if(usuario.getUsername().equals(UtilEmail.getDefaultValueMail()) || usuario.getUsername().equals(UtilEmail.getDefaultValueMail())){
             return false;
         }
         if(usuario.getContraseña().equals(UtilText.getDefaultTextValue())){

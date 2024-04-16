@@ -32,21 +32,18 @@ public class AuthService {
 
     public AuthResponse login(LoginRequest request) {
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.username,request.password));
-        UserDetails  user = usuarioRepository.findByCorreoElectronico(request.username).orElseThrow();
+        UserDetails  user = usuarioRepository.findByCorreoElectronico(request.getUsername()).orElseThrow();
         String token = jwtService.getToken(user);
-        return AuthResponse.builder().
-                token(token).
-                build();
+        return new AuthResponse(token);
 
 
     }
 
     public AuthResponse register(RegisterRequest request) {
-        PersonaEntity persona = PersonaEntity.builder().primerNombre(request.primerNombre).segundoNombre(request.segundoNombre)
-                .primerApellido(request.primerApellido).segundoApellido(request.segundoApellido).userName(request.username).build();
-        UsuarioEntity usuario = UsuarioEntity.builder().userName(request.username).password(request.getPassword()).rol(Rol.USER).build();
+        PersonaEntity persona = new PersonaEntity(request.primerNombre,request.segundoNombre,request.primerApellido,request.segundoApellido,request.username);
+        UsuarioEntity usuario = new UsuarioEntity(request.username,request.password,Rol.USER);
         personaRepository.save(persona);
         usuarioRepository.save(usuario);
-        return  AuthResponse.builder().token(jwtService.getToken(usuario)).build();
+        return  new AuthResponse(jwtService.getToken(usuario));
     }
 }

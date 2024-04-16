@@ -1,14 +1,11 @@
 package com.notificationapi.notificationapi.auth;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
-@Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class AuthResponse {
-    String token;
+   private  String token;
+
+    public AuthResponse(String token) {
+        this.token = token;
+    }
 }

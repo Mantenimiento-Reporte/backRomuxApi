@@ -48,6 +48,13 @@ public class PersonaEntity implements UserDetails {
         this.correoElectronico = correoElectronico;
     }
 
+    public PersonaEntity(String primerNombre, String segundoNombre, String primerApellido, String segundoApellido, String correoElectronico) {
+        this.primerNombre = primerNombre;
+        this.segundoNombre = segundoNombre;
+        this.primerApellido = primerApellido;
+        this.segundoApellido = segundoApellido;
+        this.correoElectronico = correoElectronico;
+    }
 
 
     public UUID getIdentificador() {

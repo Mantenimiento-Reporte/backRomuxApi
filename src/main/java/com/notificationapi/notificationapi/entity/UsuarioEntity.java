@@ -15,8 +15,6 @@ import java.util.UUID;
 import static net.sf.jsqlparser.util.validation.metadata.NamedObject.role;
 
 @Entity
-@Builder
-@RequiredArgsConstructor
 @Table(name = "usuario")
 public class UsuarioEntity implements UserDetails {
     @Id
