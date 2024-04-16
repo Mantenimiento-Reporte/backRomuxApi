@@ -1,6 +1,7 @@
 package com.notificationapi.notificationapi.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 
 import java.util.UUID;
 

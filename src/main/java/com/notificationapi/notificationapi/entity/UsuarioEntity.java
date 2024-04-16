@@ -1,12 +1,20 @@
 package com.notificationapi.notificationapi.entity;
 
+import com.notificationapi.notificationapi.domain.Rol;
 import jakarta.persistence.*;
+import lombok.Builder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
+@Builder
 @Table(name = "usuario")
-public class UsuarioEntity {
+public class UsuarioEntity implements UserDetails {
 
     @Id
     @Column(name = "identificador")
@@ -18,6 +26,10 @@ public class UsuarioEntity {
 
     @Column(name = "contrasena", length = 30)
     private String contraseña;
+
+    @Column(name = "rol", length = 10)
+    private Rol rol;
+
 
     public UsuarioEntity(UUID identificador, String correoElectronico, String contraseña) {
         this.identificador = identificador;
@@ -50,5 +62,40 @@ public class UsuarioEntity {
 
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority((role.name())));
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

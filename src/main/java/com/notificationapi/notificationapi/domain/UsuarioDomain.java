@@ -12,6 +12,7 @@ public class UsuarioDomain {
     private UUID identificador;
     private String correoElectronico;
     private String contraseña;
+    private Rol rol;
 
     public UsuarioDomain(UUID identificador, String correoElectronico, String contraseña) {
         this.identificador = identificador;
