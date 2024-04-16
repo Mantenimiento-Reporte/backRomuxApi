@@ -2,15 +2,26 @@ package com.notificationapi.notificationapi.entity;
 
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
+import static net.sf.jsqlparser.util.validation.metadata.NamedObject.role;
+
 @Entity
+@Builder
+@RequiredArgsConstructor
 @Table(name = "persona")
-public class PersonaEntity {
+public class PersonaEntity implements UserDetails {
 
     @Id
-    @Column(name = "identificador")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "identificador", columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID identificador;
 
     @Column(name = "primerNombre", length = 30)
@@ -37,8 +48,7 @@ public class PersonaEntity {
         this.correoElectronico = correoElectronico;
     }
 
-    public PersonaEntity() {
-    }
+
 
     public UUID getIdentificador() {
         return identificador;
@@ -86,5 +96,40 @@ public class PersonaEntity {
 
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority((role.name())));
+    }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

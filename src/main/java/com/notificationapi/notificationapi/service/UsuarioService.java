@@ -4,7 +4,6 @@ import com.notificationapi.notificationapi.crossCutting.exception.NotificationEx
 import com.notificationapi.notificationapi.crossCutting.utils.UtilEmail;
 import com.notificationapi.notificationapi.crossCutting.utils.UtilText;
 import com.notificationapi.notificationapi.crossCutting.utils.UtilUUID;
-import com.notificationapi.notificationapi.domain.Rol;
 import com.notificationapi.notificationapi.domain.UsuarioDomain;
 import com.notificationapi.notificationapi.entity.UsuarioEntity;
 import com.notificationapi.notificationapi.repository.UsuarioRepository;
@@ -26,11 +25,11 @@ public class UsuarioService {
         return usuarioRepository.findAll().stream().map(new UsuarioService()::toDomain).toList();
     }
     private UsuarioDomain toDomain(UsuarioEntity entity){
-        return new UsuarioDomain(entity.getIdentificador(),entity.getCorreoElectronico(),entity.getContraseña(),entity.getRol());
+        return new UsuarioDomain(entity.getIdentificador(),entity.getUsername(),entity.getPassword(),entity.getRol());
 
     }
     private UsuarioEntity toEntity(UsuarioDomain domain){
-        return new UsuarioEntity(domain.getIdentificador(),domain.getCorreoElectronico(),domain.getContraseña(),domain.getRol());
+        return new UsuarioEntity(domain.getIdentificador(),domain.getUsername(),domain.getContraseña(),domain.getRol());
     }
 
     public UsuarioDomain consult(String correoElectronico){

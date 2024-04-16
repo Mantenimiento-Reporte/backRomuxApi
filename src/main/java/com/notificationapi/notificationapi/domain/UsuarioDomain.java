@@ -10,13 +10,13 @@ import java.util.UUID;
 public class UsuarioDomain {
 
     private UUID identificador;
-    private String correoElectronico;
+    private String username;
     private String contraseña;
     private Rol rol;
 
-    public UsuarioDomain(UUID identificador, String correoElectronico, String contraseña, Rol rol) {
+    public UsuarioDomain(UUID identificador, String username, String contraseña, Rol rol) {
         this.identificador = identificador;
-        this.correoElectronico = correoElectronico;
+        this.username = username;
         this.contraseña = contraseña;
         this.rol = rol;
     }
@@ -35,12 +35,12 @@ public class UsuarioDomain {
         this.identificador = (UUID) UtilDefaultObject.defaultValue(identificador, UtilUUID.getUuidDefaultValue());
     }
 
-    public String getCorreoElectronico() {
-        return correoElectronico;
+    public String getUsername() {
+        return username;
     }
 
     public UsuarioDomain setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = (String) UtilDefaultObject.defaultValue(correoElectronico, UtilEmail.getDefaultValueMail());
+        this.username = (String) UtilDefaultObject.defaultValue(correoElectronico, UtilEmail.getDefaultValueMail());
         return null;
     }
 

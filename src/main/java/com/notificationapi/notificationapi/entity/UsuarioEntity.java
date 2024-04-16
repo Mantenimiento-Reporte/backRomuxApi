@@ -19,32 +19,33 @@ import static net.sf.jsqlparser.util.validation.metadata.NamedObject.role;
 @RequiredArgsConstructor
 @Table(name = "usuario")
 public class UsuarioEntity implements UserDetails {
-
     @Id
-    @Column(name = "identificador")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "identificador", columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID identificador;
 
-    @Column(name = "correoElectronico",length = 50)
-    private String correoElectronico;
+    @Column(name = "username",length = 50)
+    private String username;
 
-    @Column(name = "contrasena", length = 30)
-    private String contraseña;
+    @Column(name = "password", length = 30)
+    private String password;
 
     @Enumerated(EnumType.STRING)
     private Rol rol;
 
 
-    public UsuarioEntity(UUID identificador, String correoElectronico, String contraseña, Rol rol) {
+    public UsuarioEntity(UUID identificador, String username, String password, Rol rol) {
         this.identificador = identificador;
-        this.correoElectronico = correoElectronico;
-        this.contraseña = contraseña;
+        this.username = username;
+        this.password = password;
     }
 
-    public UsuarioEntity(String correoElectronico, String contraseña, Rol rol) {
-        this.correoElectronico = correoElectronico;
-        this.contraseña = contraseña;
+    public UsuarioEntity(String username, String password, Rol rol) {
+        this.username = username;
+        this.password = password;
         this.rol = rol;
     }
+
 
     public UUID getIdentificador() {
         return identificador;
@@ -54,20 +55,17 @@ public class UsuarioEntity implements UserDetails {
         this.identificador = identificador;
     }
 
-    public String getCorreoElectronico() {
-        return correoElectronico;
-    }
 
     public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
+        this.username = correoElectronico;
     }
 
-    public String getContraseña() {
-        return contraseña;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContraseña(String contraseña) {
-        this.contraseña = contraseña;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Rol getRol() {
@@ -83,14 +81,11 @@ public class UsuarioEntity implements UserDetails {
         return List.of(new SimpleGrantedAuthority((role.name())));
     }
 
-    @Override
-    public String getPassword() {
-        return null;
-    }
+
 
     @Override
     public String getUsername() {
-        return null;
+        return username;
     }
 
     @Override
