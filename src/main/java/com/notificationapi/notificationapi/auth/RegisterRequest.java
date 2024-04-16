@@ -12,7 +12,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequest {
-    UUID identificador;
     String correoElectronico;
     String password;
 }

@@ -4,10 +4,12 @@ import com.notificationapi.notificationapi.crossCutting.exception.NotificationEx
 import com.notificationapi.notificationapi.crossCutting.utils.UtilEmail;
 import com.notificationapi.notificationapi.crossCutting.utils.UtilText;
 import com.notificationapi.notificationapi.crossCutting.utils.UtilUUID;
+import com.notificationapi.notificationapi.domain.Rol;
 import com.notificationapi.notificationapi.domain.UsuarioDomain;
 import com.notificationapi.notificationapi.entity.UsuarioEntity;
 import com.notificationapi.notificationapi.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -24,15 +26,15 @@ public class UsuarioService {
         return usuarioRepository.findAll().stream().map(new UsuarioService()::toDomain).toList();
     }
     private UsuarioDomain toDomain(UsuarioEntity entity){
-        return new UsuarioDomain(entity.getIdentificador(),entity.getCorreoElectronico(),entity.getContraseña());
+        return new UsuarioDomain(entity.getIdentificador(),entity.getCorreoElectronico(),entity.getContraseña(),entity.getRol());
 
     }
     private UsuarioEntity toEntity(UsuarioDomain domain){
-        return new UsuarioEntity(domain.getIdentificador(),domain.getCorreoElectronico(),domain.getContraseña());
+        return new UsuarioEntity(domain.getIdentificador(),domain.getCorreoElectronico(),domain.getContraseña(),domain.getRol());
     }
 
     public UsuarioDomain consult(String correoElectronico){
-        return toDomain(usuarioRepository.findByCorreoElectronico(correoElectronico));
+        return toDomain(usuarioRepository.findByCorreoElectronico(correoElectronico).orElseThrow(()-> new UsernameNotFoundException("User not found")));
     }
 
     public void save(UsuarioDomain usuario) throws NotificationException {

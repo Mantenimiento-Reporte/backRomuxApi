@@ -14,10 +14,11 @@ public class UsuarioDomain {
     private String contraseña;
     private Rol rol;
 
-    public UsuarioDomain(UUID identificador, String correoElectronico, String contraseña) {
+    public UsuarioDomain(UUID identificador, String correoElectronico, String contraseña, Rol rol) {
         this.identificador = identificador;
         this.correoElectronico = correoElectronico;
         this.contraseña = contraseña;
+        this.rol = rol;
     }
 
     public UsuarioDomain() {
@@ -39,7 +40,7 @@ public class UsuarioDomain {
     }
 
     public UsuarioDomain setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = (String) UtilDefaultObject.defaultValue(correoElectronico,UtilEmail.getDefaultValueMail());
+        this.correoElectronico = (String) UtilDefaultObject.defaultValue(correoElectronico, UtilEmail.getDefaultValueMail());
         return null;
     }
 
@@ -48,15 +49,14 @@ public class UsuarioDomain {
     }
 
     public void setContraseña(String contraseña) {
-        this.contraseña = (String) UtilDefaultObject.defaultValue(contraseña,UtilText.getDefaultTextValue());
+        this.contraseña = (String) UtilDefaultObject.defaultValue(contraseña, UtilText.getDefaultTextValue());
     }
 
-    @Override
-    public String toString() {
-        return "UsuarioDomain{" +
-                "identificador=" + identificador +
-                ", correoElectronico='" + correoElectronico + '\'' +
-                ", contraseña='" + contraseña + '\'' +
-                '}';
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 }

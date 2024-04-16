@@ -11,10 +11,10 @@ import java.util.UUID;
 
 public interface UsuarioRepository extends JpaRepository<UsuarioEntity, UUID> {
 
-    Optional<UsuarioEntity> findByCorreo(String correo);
+    Optional<UsuarioEntity> findByCorreoElectronico(String correoElectronico);
 
     @Query(value = "SELECT * FROM usuario WHERE correo_electronico =?1",nativeQuery = true)
-    UsuarioEntity findByCorreoElectronico(String correoElectronico);
+    UsuarioEntity findByCorreo(String correoElectronico);
 
     @Modifying
     @Transactional

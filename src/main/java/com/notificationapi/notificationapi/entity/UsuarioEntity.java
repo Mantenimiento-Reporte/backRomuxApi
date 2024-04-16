@@ -3,6 +3,7 @@ package com.notificationapi.notificationapi.entity;
 import com.notificationapi.notificationapi.domain.Rol;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,8 +12,11 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
+import static net.sf.jsqlparser.util.validation.metadata.NamedObject.role;
+
 @Entity
 @Builder
+@RequiredArgsConstructor
 @Table(name = "usuario")
 public class UsuarioEntity implements UserDetails {
 
@@ -20,24 +24,26 @@ public class UsuarioEntity implements UserDetails {
     @Column(name = "identificador")
     private UUID identificador;
 
-
     @Column(name = "correoElectronico",length = 50)
     private String correoElectronico;
 
     @Column(name = "contrasena", length = 30)
     private String contraseña;
 
-    @Column(name = "rol", length = 10)
+    @Enumerated(EnumType.STRING)
     private Rol rol;
 
 
-    public UsuarioEntity(UUID identificador, String correoElectronico, String contraseña) {
+    public UsuarioEntity(UUID identificador, String correoElectronico, String contraseña, Rol rol) {
         this.identificador = identificador;
         this.correoElectronico = correoElectronico;
         this.contraseña = contraseña;
     }
 
-    public UsuarioEntity() {
+    public UsuarioEntity(String correoElectronico, String contraseña, Rol rol) {
+        this.correoElectronico = correoElectronico;
+        this.contraseña = contraseña;
+        this.rol = rol;
     }
 
     public UUID getIdentificador() {
@@ -62,6 +68,14 @@ public class UsuarioEntity implements UserDetails {
 
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
     }
 
     @Override

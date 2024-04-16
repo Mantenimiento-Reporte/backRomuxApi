@@ -1,7 +1,6 @@
 package com.notificationapi.notificationapi.auth;
 
 import com.notificationapi.notificationapi.domain.Rol;
-import com.notificationapi.notificationapi.entity.PersonaEntity;
 import com.notificationapi.notificationapi.entity.UsuarioEntity;
 import com.notificationapi.notificationapi.jwt.JwtService;
 import com.notificationapi.notificationapi.repository.UsuarioRepository;
@@ -18,7 +17,7 @@ public class AuthService {
     }
 
     public AuthResponse register(RegisterRequest request) {
-        UsuarioEntity usuario = UsuarioEntity.builder().identificador(request.getIdentificador()).correoElectronico(request.getCorreoElectronico()).contraseña(request.getPassword()).rol(Rol.USER).build();
+        UsuarioEntity usuario = UsuarioEntity.builder().correoElectronico(request.getCorreoElectronico()).contraseña(request.getPassword()).rol(Rol.USER).build();
 
         usuarioRepository.save(usuario);
         return  AuthResponse.builder().token(jwtService.getToken(usuario)).build();
