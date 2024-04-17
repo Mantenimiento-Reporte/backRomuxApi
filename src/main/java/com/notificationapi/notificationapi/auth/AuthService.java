@@ -40,9 +40,8 @@ public class AuthService {
     }
 
     public AuthResponse register(RegisterRequest request) {
-        PersonaEntity persona = new PersonaEntity(request.primerNombre,request.segundoNombre,request.primerApellido,request.segundoApellido,request.username);
-        UsuarioEntity usuario = new UsuarioEntity(request.username,request.password,Rol.USER);
-        personaRepository.save(persona);
+        UsuarioEntity usuario = UsuarioEntity.builder().identificador(request.getIdentificador()).correoElectronico(request.getCorreoElectronico()).contraseña(request.getPassword()).rol(Rol.USER).build();
+
         usuarioRepository.save(usuario);
         return  new AuthResponse(jwtService.getToken(usuario));
     }

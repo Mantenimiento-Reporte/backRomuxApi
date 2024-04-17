@@ -2,8 +2,9 @@ package com.notificationapi.notificationapi.entity;
 
 import com.notificationapi.notificationapi.domain.Rol;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,9 @@ import java.util.UUID;
 import static net.sf.jsqlparser.util.validation.metadata.NamedObject.role;
 
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "usuario")
 public class UsuarioEntity implements UserDetails {
     @Id
@@ -22,28 +26,31 @@ public class UsuarioEntity implements UserDetails {
     @Column(name = "identificador", columnDefinition = "uuid", updatable = false, nullable = false)
     private UUID identificador;
 
-    @Column(name = "username",length = 50)
-    private String username;
+
+    @Column(name = "correoElectronico",length = 50)
+    private String correoElectronico;
+
 
     @Column(name = "password", length = 30)
     private String password;
 
-    @Enumerated(EnumType.STRING)
+    @Column(name = "rol", length = 10)
     private Rol rol;
 
 
-    public UsuarioEntity(UUID identificador, String username, String password, Rol rol) {
+
+    public UsuarioEntity(UUID identificador, String correoElectronico, String password, Rol rol) {
         this.identificador = identificador;
-        this.username = username;
+        this.correoElectronico = correoElectronico;
         this.password = password;
     }
 
-    public UsuarioEntity(String username, String password, Rol rol) {
-        this.username = username;
+
+    public UsuarioEntity(String correoElectronico, String password, Rol rol) {
+        this.correoElectronico = correoElectronico;
         this.password = password;
         this.rol = rol;
     }
-
 
     public UUID getIdentificador() {
         return identificador;
@@ -55,7 +62,7 @@ public class UsuarioEntity implements UserDetails {
 
 
     public void setCorreoElectronico(String correoElectronico) {
-        this.username = correoElectronico;
+        this.correoElectronico = correoElectronico;
     }
 
     public String getPassword() {
@@ -68,6 +75,10 @@ public class UsuarioEntity implements UserDetails {
 
     public Rol getRol() {
         return rol;
+    }
+
+    public String getCorreoElectronico() {
+        return correoElectronico;
     }
 
     public void setRol(Rol rol) {
@@ -83,7 +94,7 @@ public class UsuarioEntity implements UserDetails {
 
     @Override
     public String getUsername() {
-        return username;
+        return correoElectronico;
     }
 
     @Override

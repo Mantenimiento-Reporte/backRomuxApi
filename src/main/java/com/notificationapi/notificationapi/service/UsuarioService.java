@@ -8,7 +8,6 @@ import com.notificationapi.notificationapi.domain.UsuarioDomain;
 import com.notificationapi.notificationapi.entity.UsuarioEntity;
 import com.notificationapi.notificationapi.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,14 +25,14 @@ public class UsuarioService {
     }
     private UsuarioDomain toDomain(UsuarioEntity entity){
         return new UsuarioDomain(entity.getIdentificador(),entity.getUsername(),entity.getPassword(),entity.getRol());
+    }
+    private UsuarioEntity toEntity(UsuarioDomain domain) {
+        return new UsuarioEntity(domain.getIdentificador(), domain.getCorreoElectronico(), domain.getContraseña(), domain.getRol());
+    }
 
-    }
-    private UsuarioEntity toEntity(UsuarioDomain domain){
-        return new UsuarioEntity(domain.getIdentificador(),domain.getUsername(),domain.getContraseña(),domain.getRol());
-    }
 
     public UsuarioDomain consult(String correoElectronico){
-        return toDomain(usuarioRepository.findByCorreoElectronico(correoElectronico).orElseThrow(()-> new UsernameNotFoundException("User not found")));
+        return toDomain(usuarioRepository.findByCorreo(correoElectronico));
     }
 
     public void save(UsuarioDomain usuario) throws NotificationException {
@@ -73,7 +72,7 @@ public class UsuarioService {
     }
 
     private boolean datosSonValidos(UsuarioDomain usuario){
-        if(usuario.getUsername().equals(UtilEmail.getDefaultValueMail()) || usuario.getUsername().equals(UtilEmail.getDefaultValueMail())){
+        if(usuario.getCorreoElectronico().equals(UtilEmail.getDefaultValueMail()) || usuario.getCorreoElectronico().equals(UtilEmail.getDefaultValueMail())){
             return false;
         }
         if(usuario.getContraseña().equals(UtilText.getDefaultTextValue())){

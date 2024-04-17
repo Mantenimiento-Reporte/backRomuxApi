@@ -10,15 +10,15 @@ import java.util.UUID;
 public class UsuarioDomain {
 
     private UUID identificador;
-    private String username;
+    private String correoElectronico;
     private String contraseña;
     private Rol rol;
 
-    public UsuarioDomain(UUID identificador, String username, String contraseña, Rol rol) {
+
+    public UsuarioDomain(UUID identificador, String correoElectronico, String contraseña, Rol rol) {
         this.identificador = identificador;
-        this.username = username;
+        this.correoElectronico = correoElectronico;
         this.contraseña = contraseña;
-        this.rol = rol;
     }
 
     public UsuarioDomain() {
@@ -35,12 +35,12 @@ public class UsuarioDomain {
         this.identificador = (UUID) UtilDefaultObject.defaultValue(identificador, UtilUUID.getUuidDefaultValue());
     }
 
-    public String getUsername() {
-        return username;
+    public String getCorreoElectronico() {
+        return correoElectronico;
     }
 
     public UsuarioDomain setCorreoElectronico(String correoElectronico) {
-        this.username = (String) UtilDefaultObject.defaultValue(correoElectronico, UtilEmail.getDefaultValueMail());
+        this.correoElectronico = (String) UtilDefaultObject.defaultValue(correoElectronico,UtilEmail.getDefaultValueMail());
         return null;
     }
 
@@ -49,7 +49,7 @@ public class UsuarioDomain {
     }
 
     public void setContraseña(String contraseña) {
-        this.contraseña = (String) UtilDefaultObject.defaultValue(contraseña, UtilText.getDefaultTextValue());
+        this.contraseña = (String) UtilDefaultObject.defaultValue(contraseña,UtilText.getDefaultTextValue());
     }
 
     public Rol getRol() {

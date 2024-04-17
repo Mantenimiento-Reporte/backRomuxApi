@@ -13,10 +13,12 @@ import java.util.UUID;
 @NoArgsConstructor
 public class RegisterRequest {
 
+
     String primerNombre;
     String segundoNombre;
     String primerApellido;
     String segundoApellido;
-    String username;
+
+    String correoElectronico;
     String password;
 }
