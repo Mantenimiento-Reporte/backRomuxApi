@@ -18,8 +18,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 public class  ApplicationConfig {
 
-    @Autowired
-    private final UsuarioRepository usuarioRepository;
+    private final UsuarioRepository userRepository;
+
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception
     {
@@ -37,14 +37,12 @@ public class  ApplicationConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-
     public UserDetailsService userDetailService() {
-        return username -> usuarioRepository.findByCorreoElectronico(username)
+        return username -> userRepository.findByCorreoElectronico(username)
                 .orElseThrow(()-> new UsernameNotFoundException("User not fournd"));
     }
 }

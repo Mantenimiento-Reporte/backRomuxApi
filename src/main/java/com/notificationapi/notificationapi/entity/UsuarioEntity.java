@@ -31,19 +31,15 @@ public class UsuarioEntity implements UserDetails {
     private String correoElectronico;
 
 
-    @Column(name = "password", length = 30)
+    @Column(name = "password", length = 255)
     private String password;
 
-    @Column(name = "rol", length = 10)
+    @Enumerated(EnumType.STRING)
     private Rol rol;
 
 
 
-    public UsuarioEntity(UUID identificador, String correoElectronico, String password, Rol rol) {
-        this.identificador = identificador;
-        this.correoElectronico = correoElectronico;
-        this.password = password;
-    }
+
 
 
     public UsuarioEntity(String correoElectronico, String password, Rol rol) {

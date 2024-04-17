@@ -25,24 +25,26 @@ public class SecurityConfig {
     private final AuthenticationProvider authProvider;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception
+    {
+        return http
+                .csrf(csrf ->
+                        csrf
+                                .disable())
+                .authorizeHttpRequests(authRequest ->
+                        authRequest
+                                .requestMatchers("/auth/**").permitAll()
+                                .anyRequest().authenticated()
+                )
+                .sessionManagement(sessionManager->
+                        sessionManager
+                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authProvider)
+                .addFilterBefore(jwtAutheticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .build();
 
-            return http
-                    .csrf(AbstractHttpConfigurer::disable)
-                    .authorizeHttpRequests(authRequest ->
-                            authRequest
-                                    .requestMatchers("/auth/**").permitAll()
-                                    .anyRequest().authenticated()
-                    )
-                    .sessionManagement(sessionManager ->
-                            sessionManager
-                                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                    .authenticationProvider(authProvider)
-                    .addFilterBefore(jwtAutheticationFilter, UsernamePasswordAuthenticationFilter.class)
-                    .build();
 
-
-        }
+    }
 
     }
 

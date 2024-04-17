@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -29,19 +30,28 @@ public class AuthService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     public AuthResponse login(LoginRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.username,request.password));
-        UserDetails  user = usuarioRepository.findByCorreoElectronico(request.getUsername()).orElseThrow();
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.correoElectronico,request.password));
+        UserDetails  user = usuarioRepository.findByCorreoElectronico(request.getCorreoElectronico()).orElseThrow();
         String token = jwtService.getToken(user);
-        return new AuthResponse(token);
+        return  AuthResponse.builder()
+                .token(token)
+                .build();
 
 
     }
 
     public AuthResponse register(RegisterRequest request) {
-        UsuarioEntity usuario = UsuarioEntity.builder().identificador(request.getIdentificador()).correoElectronico(request.getCorreoElectronico()).contraseña(request.getPassword()).rol(Rol.USER).build();
+        UsuarioEntity usuario = UsuarioEntity.builder().correoElectronico(request.getCorreoElectronico()).
+                password(passwordEncoder.encode((request.getPassword()))).rol(Rol.USER).build();
 
+        PersonaEntity persona = PersonaEntity.builder().primerApellido(request.primerApellido).segundoNombre(request.segundoNombre).
+                primerApellido(request.primerApellido).segundoApellido(request.segundoApellido).correoElectronico(request.correoElectronico).build();
+        personaRepository.save(persona);
         usuarioRepository.save(usuario);
         return  new AuthResponse(jwtService.getToken(usuario));
     }

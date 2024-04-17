@@ -2,6 +2,7 @@ package com.notificationapi.notificationapi.entity;
 
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -14,6 +15,7 @@ import java.util.UUID;
 import static net.sf.jsqlparser.util.validation.metadata.NamedObject.role;
 
 @Entity
+@Data
 @Builder
 @RequiredArgsConstructor
 @Table(name = "persona")

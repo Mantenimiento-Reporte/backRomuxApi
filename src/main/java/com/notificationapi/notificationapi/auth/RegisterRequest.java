@@ -18,7 +18,6 @@ public class RegisterRequest {
     String segundoNombre;
     String primerApellido;
     String segundoApellido;
-
     String correoElectronico;
     String password;
 }
