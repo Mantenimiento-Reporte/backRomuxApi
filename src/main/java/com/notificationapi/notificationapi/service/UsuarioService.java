@@ -8,6 +8,7 @@ import com.notificationapi.notificationapi.domain.UsuarioDomain;
 import com.notificationapi.notificationapi.entity.UsuarioEntity;
 import com.notificationapi.notificationapi.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -42,19 +43,19 @@ public class UsuarioService {
         try{
             usuarioRepository.save(toEntity(usuario));
         }catch (Exception e){
-            System.out.println("Entra aqui?");
             throw e;
         }
 
     }
 
     public void update(String correoElectronico, String contraseña) throws NotificationException {
-        System.out.println(contraseña+"service");
         if(contraseña.equals(UtilText.getDefaultTextValue())){
             throw new NotificationException();
         }
         try {
-            usuarioRepository.updateByCorreoElectronico(contraseña, correoElectronico);
+            PasswordEncoder passwordEncoder = null;
+            String encriptadaContraseña = passwordEncoder.encode(contraseña);
+            usuarioRepository.updateByCorreoElectronico(encriptadaContraseña, correoElectronico);
         }catch (Exception e){
             throw e;
         }

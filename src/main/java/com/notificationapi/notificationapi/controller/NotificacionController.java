@@ -13,7 +13,7 @@ import java.util.UUID;
 
 
 @RestController
-@RequestMapping("v1")
+@RequestMapping("/v1")
 public class NotificacionController {
 
     @Autowired

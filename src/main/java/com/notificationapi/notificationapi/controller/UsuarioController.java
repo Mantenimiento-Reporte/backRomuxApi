@@ -49,7 +49,6 @@ public class UsuarioController {
     @PutMapping("/usuario")
     public ResponseEntity<String> update(@RequestParam(required = true) String correoElectronico,@RequestParam String contraseña){
         try {
-            System.out.println(contraseña+"controller");
             usuarioService.update(correoElectronico,contraseña);
             return new ResponseEntity<>("Contraseña actualizada con Exito!!",HttpStatus.BAD_REQUEST);
         }catch (NotificationException n){
