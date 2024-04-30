@@ -36,8 +36,10 @@ public class NotificacionController {
     }
 
     @PostMapping("/notificacion")
-    public ResponseEntity<UUID> create(@Validated @RequestBody NotificacionDomain notificacion){
-        return new ResponseEntity<>(notificacionService.saveNotificacion(notificacion), HttpStatus.OK);
+    public ResponseEntity<String> create(@Validated @RequestBody NotificacionDomain notificacion){
+        notificacionService.saveNotificacion(notificacion);
+        return new ResponseEntity<>("Creo que si dio",HttpStatus.OK);
+        
     }
 
     @DeleteMapping("/notificacion")

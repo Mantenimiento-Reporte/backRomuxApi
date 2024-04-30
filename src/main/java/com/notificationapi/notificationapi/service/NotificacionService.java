@@ -1,5 +1,6 @@
 package com.notificationapi.notificationapi.service;
 
+import com.notificationapi.notificationapi.MessengerService.notificacion.MessageSenderNotificacion;
 import com.notificationapi.notificationapi.domain.NotificacionDomain;
 import com.notificationapi.notificationapi.domain.PersonaDomain;
 import com.notificationapi.notificationapi.entity.NotificacionEntity;
@@ -16,6 +17,9 @@ public class NotificacionService {
 
     @Autowired
     private NotificacionRepository notificacionRepository;
+
+    @Autowired
+    private MessageSenderNotificacion messageSenderNotificacion;
 
     public List<NotificacionDomain> findAll(){
         return notificacionRepository.findAll().stream().map(new NotificacionService()::toDomain).toList();
@@ -46,10 +50,8 @@ public class NotificacionService {
         return toDomain(entity);
     }
 
-    public UUID saveNotificacion(NotificacionDomain notificacion){
-        var autor = new PersonaEntity(notificacion.getAutor().getIdentificador(), notificacion.getAutor().getPrimerNombre(), notificacion.getAutor().getSegundoNombre(), notificacion.getAutor().getPrimerApellido(), notificacion.getAutor().getSegundoApellido(), notificacion.getAutor().getCorreoElectronico());
-        var entity = new NotificacionEntity(notificacion.getIdentificador(), autor, notificacion.getTitulo(), notificacion.getContenido(), notificacion.getFechaCreacion(), notificacion.getEstado(), notificacion.getFechaProgramada(), notificacion.getTipoEntrega(), notificacion.getDestinatario().stream().map(new NotificacionService()::personaToEntity).toList());
-        return notificacionRepository.save(entity).getIdentificador();
+    public void saveNotificacion(NotificacionDomain notificacion){
+        messageSenderNotificacion.execute(notificacion,"");
     }
 
     public void deleteNotificacion(UUID identificador){
