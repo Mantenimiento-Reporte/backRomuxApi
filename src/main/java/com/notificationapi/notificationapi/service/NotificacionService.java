@@ -1,11 +1,12 @@
 package com.notificationapi.notificationapi.service;
 
 import com.notificationapi.notificationapi.MessengerService.notificacion.MessageSenderNotificacion;
+import com.notificationapi.notificationapi.config.notificacionQueueConfig.NotificacionQueueConfigConsultar;
+import com.notificationapi.notificationapi.config.notificacionQueueConfig.NotificacionQueueConfigCrear;
+import com.notificationapi.notificationapi.config.notificacionQueueConfig.NotificacionQueueConfigEliminar;
 import com.notificationapi.notificationapi.domain.NotificacionDomain;
 import com.notificationapi.notificationapi.domain.PersonaDomain;
-import com.notificationapi.notificationapi.entity.NotificacionEntity;
 import com.notificationapi.notificationapi.entity.PersonaEntity;
-import com.notificationapi.notificationapi.repository.NotificacionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -15,26 +16,33 @@ import java.util.UUID;
 @Repository
 public class NotificacionService {
 
-    @Autowired
-    private NotificacionRepository notificacionRepository;
 
     @Autowired
     private MessageSenderNotificacion messageSenderNotificacion;
+    @Autowired
+    private NotificacionQueueConfigConsultar notificacionQueueConfigConsultar;
+    @Autowired
+    private NotificacionQueueConfigCrear notificacionQueueConfigCrear;
+    @Autowired
+    private NotificacionQueueConfigEliminar notificacionQueueConfigEliminar;
+
 
     public List<NotificacionDomain> findAll(){
-        return notificacionRepository.findAll().stream().map(new NotificacionService()::toDomain).toList();
+        NotificacionDomain notificacionPorDefecto = new NotificacionDomain();
+        messageSenderNotificacion.execute(notificacionPorDefecto,"12312", notificacionQueueConfigConsultar.getExchangeName(),notificacionQueueConfigConsultar.getRoutingKeyName());
+        return null;
     }
 
     public List<NotificacionDomain> getNotificacionesPorDestinatario(String correo){
-        var entities = notificacionRepository.findAll();
-        var notificaciones = entities.stream().filter(notificacion->notificacion.getDestinatario().stream().anyMatch(destinatario->destinatario.getCorreoElectronico().equals(correo))).toList();
-        return notificaciones.stream().map(new NotificacionService()::toDomain).toList();
+       NotificacionDomain notificacionDomain = new NotificacionDomain();
+       PersonaDomain autor = new PersonaDomain();
+       autor.setCorreoElectronico(correo);
+       notificacionDomain.setAutor(autor);
+       messageSenderNotificacion.execute(notificacionDomain,"12314", notificacionQueueConfigConsultar.getExchangeName(), notificacionQueueConfigConsultar.getRoutingKeyName());
+       return null;
     }
 
-    private NotificacionDomain toDomain(NotificacionEntity entity){
-        var autor = new PersonaDomain(entity.getAutor().getIdentificador(), entity.getAutor().getPrimerNombre(), entity.getAutor().getSegundoNombre(), entity.getAutor().getPrimerApellido(), entity.getAutor().getSegundoApellido(), entity.getAutor().getCorreoElectronico());
-        return new NotificacionDomain(entity.getIdentificador(), autor, entity.getTitulo(), entity.getContenido(), entity.getFechaCreacion(), entity.getEstado(), entity.getFechaProgramada(), entity.getTipoEntrega(), entity.getDestinatario().stream().map(new NotificacionService()::personaToDomain).toList());
-    }
+
 
     private PersonaDomain personaToDomain(PersonaEntity entity){
         return new PersonaDomain(entity.getIdentificador(), entity.getPrimerNombre(), entity.getSegundoNombre(), entity.getPrimerApellido(), entity.getSegundoApellido(), entity.getCorreoElectronico());
@@ -44,18 +52,15 @@ public class NotificacionService {
         return new PersonaEntity(domain.getIdentificador(), domain.getPrimerNombre(), domain.getSegundoNombre(), domain.getPrimerApellido(), domain.getSegundoApellido(), domain.getCorreoElectronico());
     }
 
-    public NotificacionDomain findById(UUID identificador){
-        var entity = notificacionRepository.findById(identificador).orElse(null);
-        assert entity != null;
-        return toDomain(entity);
-    }
 
     public void saveNotificacion(NotificacionDomain notificacion){
-        messageSenderNotificacion.execute(notificacion,"");
+        messageSenderNotificacion.execute(notificacion,"3423",notificacionQueueConfigCrear.getExchangeName(),notificacionQueueConfigCrear.getRoutingKeyName());
     }
 
     public void deleteNotificacion(UUID identificador){
-        notificacionRepository.deleteById(identificador);
+        NotificacionDomain notificacion = new NotificacionDomain();
+        notificacion.setIdentificador(identificador);
+        messageSenderNotificacion.execute(notificacion,"235432 ", notificacionQueueConfigEliminar.getExchangeName(), notificacionQueueConfigEliminar.getRoutingKeyName());
     }
 
 }

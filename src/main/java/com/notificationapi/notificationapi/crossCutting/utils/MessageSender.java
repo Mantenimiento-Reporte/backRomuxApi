@@ -1,5 +1,5 @@
 package com.notificationapi.notificationapi.crossCutting.utils;
 
 public interface MessageSender<T>{
-    void execute(T message, String idMessage);
+    void execute(T message, String idMessage,String exchange,String routingKey);
 }
