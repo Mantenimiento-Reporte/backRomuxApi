@@ -10,5 +10,8 @@ import org.springframework.context.annotation.Configuration;
 @Setter
 @ConfigurationProperties(prefix = "buzon.notificacion.consultar.rabbitmq")
 public class BuzonNotificacionQueueConfigConsultar extends BuzonNotificacionQueueConfig{
+    public String exchangeName;
+    public String routingKeyName;
+    public String queueName;
 
 }

@@ -10,5 +10,7 @@ import org.springframework.context.annotation.Configuration;
 @Setter
 @ConfigurationProperties(prefix = "buzon.notificacion.eliminar.rabbitmq")
 public class BuzonNotificacionQueueConfigEliminar extends BuzonNotificacionQueueConfig{
-
+    public String exchangeName;
+    public String routingKeyName;
+    public String queueName;
 }

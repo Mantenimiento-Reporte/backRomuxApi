@@ -6,6 +6,7 @@ import com.google.gson.*;
 import com.notificationapi.notificationapi.crossCutting.utils.gson.MapperJsonObjeto;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -20,7 +21,7 @@ public class MapperJsonObjetoJackson implements MapperJsonObjeto {
             ObjectMapper objectMapper = new ObjectMapper();
 
             return Optional.ofNullable(objectMapper.writeValueAsString(objeto));
-        } catch (JsonProcessingException e) {
+        } catch (IOException e) {
             return Optional.empty();
         }
     }

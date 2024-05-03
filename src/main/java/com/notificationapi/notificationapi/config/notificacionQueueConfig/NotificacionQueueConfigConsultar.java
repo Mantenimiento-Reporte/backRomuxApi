@@ -9,7 +9,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "notificacion.consultar.rabbitmq")
+@ConfigurationProperties(prefix = "notificacion-consultar-rabbitmq")
 public class NotificacionQueueConfigConsultar extends NotificacionQueueConfig {
+    public String exchangeName;
+    public String routingKeyName;
+    public String queueName;
 
 }

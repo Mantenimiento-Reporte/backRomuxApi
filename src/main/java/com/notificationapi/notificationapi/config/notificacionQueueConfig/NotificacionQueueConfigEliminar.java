@@ -8,6 +8,9 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @Getter
 @Setter
-@ConfigurationProperties(prefix = "notificacion.eliminar.rabbitmq")
+@ConfigurationProperties(prefix = "notificacion-eliminar-rabbitmq")
 public class NotificacionQueueConfigEliminar extends NotificacionQueueConfig{
+    public String exchangeName;
+    public String routingKeyName;
+    public String queueName;
 }
