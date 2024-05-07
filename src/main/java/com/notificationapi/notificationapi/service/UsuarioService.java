@@ -24,10 +24,10 @@ public class UsuarioService {
     public List<UsuarioDomain> findAll(){
         return usuarioRepository.findAll().stream().map(new UsuarioService()::toDomain).toList();
     }
-    private UsuarioDomain toDomain(UsuarioEntity entity){
+    public UsuarioDomain toDomain(UsuarioEntity entity){
         return new UsuarioDomain(entity.getIdentificador(),entity.getUsername(),entity.getPassword(),entity.getRol());
     }
-    private UsuarioEntity toEntity(UsuarioDomain domain) {
+    public UsuarioEntity toEntity(UsuarioDomain domain) {
         return new UsuarioEntity(domain.getIdentificador(), domain.getCorreoElectronico(), domain.getContraseña(), domain.getRol());
     }
 

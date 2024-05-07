@@ -4,6 +4,7 @@ import com.notificationapi.notificationapi.crossCutting.utils.UtilEmail;
 import com.notificationapi.notificationapi.crossCutting.utils.UtilText;
 import com.notificationapi.notificationapi.crossCutting.utils.UtilUUID;
 import com.notificationapi.notificationapi.crossCutting.exception.NotificationException;
+import com.notificationapi.notificationapi.domain.BuzonNotificacionDomain;
 import com.notificationapi.notificationapi.domain.PersonaDomain;
 import com.notificationapi.notificationapi.entity.PersonaEntity;
 import com.notificationapi.notificationapi.repository.PersonaRepository;
@@ -20,16 +21,18 @@ public class PersonaService {
     @Autowired
     private PersonaRepository personaRepository;
 
+    @Autowired
+    private BuzonNotificacionService buzonNotificacionService;
 
     public List<PersonaDomain> findAll(){
         return personaRepository.findAll().stream().map(new PersonaService()::toDomain).toList();
     }
 
-    private PersonaDomain toDomain(PersonaEntity entity){
+    public PersonaDomain toDomain(PersonaEntity entity){
         return new PersonaDomain(entity.getIdentificador(),entity.getPrimerNombre(),entity.getSegundoNombre(),entity.getPrimerApellido()
         ,entity.getSegundoApellido(),entity.getCorreoElectronico());
     }
-    private PersonaEntity toEntity(PersonaDomain domain){
+    public PersonaEntity toEntity(PersonaDomain domain){
         return new PersonaEntity(domain.getIdentificador(),domain.getPrimerNombre(),domain.getSegundoNombre(),domain.getPrimerApellido()
                 ,domain.getSegundoApellido(),domain.getCorreoElectronico());
     }
@@ -47,6 +50,9 @@ public class PersonaService {
         }catch (Exception e){
             throw e;
         }
+        BuzonNotificacionDomain buzonNotificacionDomain = new BuzonNotificacionDomain();
+        buzonNotificacionDomain.setPropietario(persona);
+        buzonNotificacionService.saveBuzonNotificacion(buzonNotificacionDomain);
     }
 
     public void update(PersonaDomain persona) throws NotificationException {

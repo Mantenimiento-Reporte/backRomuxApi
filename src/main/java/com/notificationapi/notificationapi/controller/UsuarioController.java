@@ -33,18 +33,6 @@ public class UsuarioController {
         return new ResponseEntity<>(usuarioService.consult(correoElectronico),HttpStatus.OK);
     }
 
-    @PostMapping("/usuario")
-    public ResponseEntity<String> createUsuario(@RequestBody(required = true) UsuarioDomain usuarioDomain){
-        try {
-            usuarioService.save(usuarioDomain);
-            return new ResponseEntity<>("Usuario Registrado con exito!!", HttpStatus.OK);
-        } catch (NotificationException e) {
-            return new ResponseEntity<>("Error, el correo electronico o la contraseña deben ser validos", HttpStatus.BAD_REQUEST);
-        } catch (Exception e){
-            return new ResponseEntity<>("Error, el correo electronico ya esta registrado previamente", HttpStatus.BAD_REQUEST);
-        }
-    }
-
 
     @PutMapping("/usuario")
     public ResponseEntity<String> update(@RequestParam(required = true) String correoElectronico,@RequestParam String contraseña){

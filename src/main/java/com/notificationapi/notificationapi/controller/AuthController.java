@@ -4,6 +4,7 @@ import com.notificationapi.notificationapi.auth.AuthResponse;
 import com.notificationapi.notificationapi.auth.AuthService;
 import com.notificationapi.notificationapi.auth.LoginRequest;
 import com.notificationapi.notificationapi.auth.RegisterRequest;
+import com.notificationapi.notificationapi.crossCutting.exception.NotificationException;
 import com.notificationapi.notificationapi.entity.PersonaEntity;
 import com.notificationapi.notificationapi.entity.UsuarioEntity;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +30,7 @@ public class AuthController {
     }
 
     @PostMapping(value = "/register")
-    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request){
+    public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) throws NotificationException {
         return ResponseEntity.ok(authService.register(request));
     }
 }

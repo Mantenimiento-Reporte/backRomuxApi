@@ -1,11 +1,11 @@
 package com.notificationapi.notificationapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.notificationapi.notificationapi.crossCutting.utils.UtilDate;
 import com.notificationapi.notificationapi.crossCutting.utils.UtilDefaultObject;
 import com.notificationapi.notificationapi.crossCutting.utils.UtilText;
 import com.notificationapi.notificationapi.crossCutting.utils.UtilUUID;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -18,9 +18,9 @@ public class NotificacionDomain {
     private PersonaDomain autor;
     private String titulo;
     private String contenido;
-    private LocalDate fechaCreacion;
+    private Date fechaCreacion;
     private String estado;
-    private LocalDate fechaProgramada;
+    private Date fechaProgramada;
     private String tipoEntrega;
 
     private List<PersonaDomain> destinatario;
@@ -31,14 +31,12 @@ public class NotificacionDomain {
         setAutor(new PersonaDomain());
         setTitulo(UtilText.getDefaultTextValue());
         setContenido(UtilText.getDefaultTextValue());
-        setFechaCreacion(UtilDate.getDefaultValueDate());
         setEstado(UtilText.getDefaultTextValue());
-        setFechaProgramada(UtilDate.getDefaultValueDate());
         setTipoEntrega(UtilText.getDefaultTextValue());
         setDestinatario(new ArrayList<>());
     }
 
-    public NotificacionDomain(UUID identificador, PersonaDomain autor, String titulo, String contenido, LocalDate fechaCreacion, String estado, LocalDate fechaProgramada, String tipoEntrega, List<PersonaDomain> destinatario) {
+    public NotificacionDomain(UUID identificador, PersonaDomain autor, String titulo, String contenido, Date fechaCreacion, String estado, Date fechaProgramada, String tipoEntrega, List<PersonaDomain> destinatario) {
         this.identificador = identificador;
         this.autor = autor;
         this.titulo = titulo;
@@ -83,12 +81,12 @@ public class NotificacionDomain {
         this.contenido = (String) UtilDefaultObject.defaultValue(contenido,UtilText.getDefaultTextValue());
     }
 
-    public LocalDate getFechaCreacion() {
+    public Date getFechaCreacion() {
         return fechaCreacion;
     }
 
-    public void setFechaCreacion(LocalDate fechaCreacion) {
-        this.fechaCreacion = (LocalDate) UtilDefaultObject.defaultValue(fechaCreacion,UtilDate.getDefaultValueDate());
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = (Date) UtilDefaultObject.defaultValue(fechaCreacion,UtilDate.getDefaultValueDate());
     }
 
     public String getEstado() {
@@ -99,12 +97,12 @@ public class NotificacionDomain {
         this.estado = (String) UtilDefaultObject.defaultValue(estado,UtilText.getDefaultTextValue());
     }
 
-    public LocalDate getFechaProgramada() {
+    public Date getFechaProgramada() {
         return fechaProgramada;
     }
 
-    public void setFechaProgramada(LocalDate fechaProgramada) {
-        this.fechaProgramada = (LocalDate) UtilDefaultObject.defaultValue(fechaProgramada, UtilDate.getDefaultValueDate());
+    public void setFechaProgramada(Date fechaProgramada) {
+        this.fechaProgramada = (Date) UtilDefaultObject.defaultValue(fechaProgramada, UtilDate.getDefaultValueDate());
     }
 
     public String getTipoEntrega() {

@@ -1,6 +1,6 @@
 package com.notificationapi.notificationapi.MessengerService.notificacion;
 
-import com.notificationapi.notificationapi.config.notificacionQueueConfig.NotificacionQueueConfig;
+
 import com.notificationapi.notificationapi.crossCutting.utils.MessageSender;
 import com.notificationapi.notificationapi.crossCutting.utils.gson.MapperJsonObjeto;
 import com.notificationapi.notificationapi.domain.NotificacionDomain;
@@ -40,7 +40,6 @@ public class MessageSenderNotificacion implements MessageSender<NotificacionDoma
 
     private Optional<Message> obtenerCuerpoMensaje(Object mensaje, MessageProperties propiedadesMensaje) {
         Optional<String> textoMensaje = mapperJsonObjeto.ejecutarGson(mensaje);
-
         return textoMensaje.map(msg -> MessageBuilder
                 .withBody(msg.getBytes())
                 .andProperties(propiedadesMensaje)
@@ -52,12 +51,11 @@ public class MessageSenderNotificacion implements MessageSender<NotificacionDoma
     @Override
     public void execute(NotificacionDomain message, String idMessage, String exchange, String routingKey) {
         MessageProperties propiedadesMensaje = generarPropiedadesMensaje(Long.valueOf(idMessage));
-
         Optional<Message> cuerpoMensaje = obtenerCuerpoMensaje(message, propiedadesMensaje);
         if (!cuerpoMensaje.isPresent()) {
             return;
         }
-
+        System.out.println(cuerpoMensaje);
         rabbitTemplate.convertAndSend(exchange, routingKey, cuerpoMensaje.get());
     }
 }
