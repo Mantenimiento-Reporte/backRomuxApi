@@ -11,10 +11,14 @@ import com.notificationapi.notificationapi.domain.PersonaDomain;
 import com.notificationapi.notificationapi.entity.PersonaEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.UnaryOperator;
 
+@Service
 @Repository
 public class BuzonNotificacionService {
 
@@ -27,30 +31,25 @@ public class BuzonNotificacionService {
     @Autowired
     private BuzonNotificacionQueueConfigEliminar buzonNotificacionQueueConfigEliminar;
 
-    public List<BuzonNotificacionDomain> getBuzonNotificacionesPorPropietario(String correo){
+    private List<BuzonNotificacionDomain> respuesta = new ArrayList<>();
+
+    public void getBuzonNotificacionesPorPropietario(String correo){
         BuzonNotificacionDomain buzon = new BuzonNotificacionDomain();
         PersonaDomain propietario = new PersonaDomain();
         propietario.setCorreoElectronico(correo);
         buzon.setPropietario(propietario);
         messageSenderBuzonNotificacion.execute(buzon,"312",buzonNotificacionQueueConfigConsultar.getExchangeName(), buzonNotificacionQueueConfigConsultar.getRoutingKeyName());
 
-        return null;
     }
 
 
 
-    public List<BuzonNotificacionDomain> findAll(){
+    public void findAll(){
         BuzonNotificacionDomain buzon = new BuzonNotificacionDomain();
         messageSenderBuzonNotificacion.execute(buzon,"1323",buzonNotificacionQueueConfigConsultar.getExchangeName(), buzonNotificacionQueueConfigConsultar.getRoutingKeyName());
-        return null;
     }
 
-    public BuzonNotificacionDomain findById(UUID identificador){
-        BuzonNotificacionDomain buzon = new BuzonNotificacionDomain();
-        buzon.setIdentificador(identificador);
-        messageSenderBuzonNotificacion.execute(buzon,"212",buzonNotificacionQueueConfigConsultar.getExchangeName(), buzonNotificacionQueueConfigConsultar.getRoutingKeyName());
-        return null;
-    }
+
 
     public void saveBuzonNotificacion(BuzonNotificacionDomain buzonNotificacion){
         messageSenderBuzonNotificacion.execute(buzonNotificacion,"4312",buzonNotificacionQueueConfigCrear.getExchangeName(),buzonNotificacionQueueConfigCrear.getRoutingKeyName());
@@ -70,5 +69,14 @@ public class BuzonNotificacionService {
         BuzonNotificacionDomain buzon = new BuzonNotificacionDomain();
         buzon.setIdentificador(identificador);
         messageSenderBuzonNotificacion.execute(buzon,"312", buzonNotificacionQueueConfigEliminar.getExchangeName(), buzonNotificacionQueueConfigEliminar.getRoutingKeyName());
+    }
+
+    public void listaRecibida(List<BuzonNotificacionDomain> mensaje){
+        respuesta.clear();
+        respuesta.addAll(mensaje);
+    }
+
+    public List<BuzonNotificacionDomain> getRespuesta() {
+        return respuesta;
     }
 }

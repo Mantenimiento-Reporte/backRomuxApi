@@ -19,8 +19,12 @@ import java.util.UUID;
 
 public class BuzonNotificacionController {
 
-    @Autowired
     private BuzonNotificacionService buzonNotificacionService;
+
+    @Autowired
+    public BuzonNotificacionController(BuzonNotificacionService buzonNotificacionService) {
+        this.buzonNotificacionService = buzonNotificacionService;
+    }
 
     @GetMapping("/dummy_buzonnotificacion")
     BuzonNotificacionDomain dummy(){
@@ -28,19 +32,13 @@ public class BuzonNotificacionController {
     }
 
     @GetMapping("/buzonnotificacion/propietario")
-    public List<BuzonNotificacionDomain> getPorPropietario(@RequestParam(required = true) String correo){
+    public void getPorPropietario(@RequestParam(required = true) String correo){
         buzonNotificacionService.getBuzonNotificacionesPorPropietario(correo);
-        return null;
     }
-    @GetMapping("/buzonnotificacion/id")
-    public List<BuzonNotificacionDomain> getPorId(@RequestParam(required = true) UUID identificador){
-        buzonNotificacionService.findById(identificador);
-        return null;
-    }
-    @GetMapping("/buzonnotificacion_all")
-    public List<BuzonNotificacionDomain> getAll(){
+
+    @GetMapping("/buzonnotificacion/all")
+    public void getAll(){
         buzonNotificacionService.findAll();
-        return null;
     }
 
 
@@ -56,5 +54,13 @@ public class BuzonNotificacionController {
         buzonNotificacionService.eliminar(identificador);
         return null;
     }
+
+    @GetMapping("/buzonnotificacion/lista")
+    public ResponseEntity<List<BuzonNotificacionDomain>> getLista(){
+        System.out.println(buzonNotificacionService.getRespuesta());
+        return new ResponseEntity<>(buzonNotificacionService.getRespuesta(),HttpStatus.OK);
+
+    }
+
 
 }
