@@ -27,7 +27,7 @@ public class PersonaController {
         return new PersonaDomain();
     }
 
-    @GetMapping("/persona_all")
+    @GetMapping("/persona/all")
     public ResponseEntity<List<PersonaDomain>> findAll(){
         return new ResponseEntity<>(personaService.findAll(),HttpStatus.OK);
     }

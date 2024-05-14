@@ -4,6 +4,7 @@ import com.notificationapi.notificationapi.MessengerService.notificacion.Message
 import com.notificationapi.notificationapi.config.notificacionQueueConfig.NotificacionQueueConfigConsultar;
 import com.notificationapi.notificationapi.config.notificacionQueueConfig.NotificacionQueueConfigCrear;
 import com.notificationapi.notificationapi.config.notificacionQueueConfig.NotificacionQueueConfigEliminar;
+import com.notificationapi.notificationapi.crossCutting.utils.UtilDate;
 import com.notificationapi.notificationapi.domain.NotificacionDomain;
 import com.notificationapi.notificationapi.domain.PersonaDomain;
 import com.notificationapi.notificationapi.entity.PersonaEntity;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 @Repository
@@ -54,6 +56,9 @@ public class NotificacionService {
 
 
     public void saveNotificacion(NotificacionDomain notificacion){
+        if(!UtilDate.isValidDate(notificacion.getFechaCreacion()) || !UtilDate.isValidDate(notificacion.getFechaProgramada())){
+            throw new NoSuchElementException("Error, no se puede crear la notificacion, formato de fechas invalido");
+        }
         messageSenderNotificacion.execute(notificacion,"3423",notificacionQueueConfigCrear.getExchangeName(),notificacionQueueConfigCrear.getRoutingKeyName());
     }
 

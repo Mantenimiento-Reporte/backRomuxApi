@@ -23,7 +23,7 @@ public class UsuarioController {
         return new UsuarioDomain();
     }
 
-    @GetMapping("/usuario_all")
+    @GetMapping("/usuario/all")
     public ResponseEntity<List<UsuarioDomain>> findAll(){
         return new ResponseEntity<>(usuarioService.findAll(),HttpStatus.OK);
     }
