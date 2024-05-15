@@ -3,6 +3,7 @@ package com.notificationapi.notificationapi.controller;
 
 import com.notificationapi.notificationapi.domain.BuzonNotificacionDomain;
 import com.notificationapi.notificationapi.service.BuzonNotificacionService;
+import org.springframework.amqp.AmqpException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,16 +51,23 @@ public class BuzonNotificacionController {
     }
 
     @DeleteMapping("/buzonnotificacion")
-    public List<ResponseEntity<BuzonNotificacionDomain>> delete(@RequestParam(required = true) UUID identificador){
-        buzonNotificacionService.eliminar(identificador);
-        return null;
+    public ResponseEntity<String> delete(@Validated @RequestBody BuzonNotificacionDomain buzonNotificacion){
+        try {
+            buzonNotificacionService.eliminar(buzonNotificacion);
+        }catch (AmqpException ex){
+            return new ResponseEntity<>("Ha ocurrido un error inesperado",HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>("Formulario enviado con exito",HttpStatus.OK);
     }
 
     @GetMapping("/buzonnotificacion/lista")
     public ResponseEntity<List<BuzonNotificacionDomain>> getLista(){
-        System.out.println(buzonNotificacionService.getRespuesta());
         return new ResponseEntity<>(buzonNotificacionService.getRespuesta(),HttpStatus.OK);
 
+    }
+    @GetMapping("/buzonnotificacion/respuesta")
+    public ResponseEntity<String> getRespuesta(){
+        return new ResponseEntity<>(buzonNotificacionService.getMensajeExcepcion(),HttpStatus.OK);
     }
 
 

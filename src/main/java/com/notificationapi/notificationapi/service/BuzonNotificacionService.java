@@ -5,10 +5,12 @@ import com.notificationapi.notificationapi.MessengerService.buzonNotificacion.Me
 import com.notificationapi.notificationapi.config.buzonNotificacionQueueConfig.BuzonNotificacionQueueConfigConsultar;
 import com.notificationapi.notificationapi.config.buzonNotificacionQueueConfig.BuzonNotificacionQueueConfigCrear;
 import com.notificationapi.notificationapi.config.buzonNotificacionQueueConfig.BuzonNotificacionQueueConfigEliminar;
+import com.notificationapi.notificationapi.crossCutting.utils.UtilUUID;
 import com.notificationapi.notificationapi.domain.BuzonNotificacionDomain;
 import com.notificationapi.notificationapi.domain.NotificacionDomain;
 import com.notificationapi.notificationapi.domain.PersonaDomain;
 import com.notificationapi.notificationapi.entity.PersonaEntity;
+import org.springframework.amqp.AmqpException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -32,6 +34,8 @@ public class BuzonNotificacionService {
     private BuzonNotificacionQueueConfigEliminar buzonNotificacionQueueConfigEliminar;
 
     private List<BuzonNotificacionDomain> respuesta = new ArrayList<>();
+
+    private String mensajeExcepcion;
 
     public void getBuzonNotificacionesPorPropietario(String correo){
         BuzonNotificacionDomain buzon = new BuzonNotificacionDomain();
@@ -65,10 +69,15 @@ public class BuzonNotificacionService {
         return new PersonaEntity(domain.getIdentificador(), domain.getPrimerNombre(), domain.getSegundoNombre(), domain.getPrimerApellido(), domain.getSegundoApellido(), domain.getCorreoElectronico());
     }
 
-    public void eliminar(UUID identificador){
-        BuzonNotificacionDomain buzon = new BuzonNotificacionDomain();
-        buzon.setIdentificador(identificador);
-        messageSenderBuzonNotificacion.execute(buzon,"312", buzonNotificacionQueueConfigEliminar.getExchangeName(), buzonNotificacionQueueConfigEliminar.getRoutingKeyName());
+    public void eliminar(BuzonNotificacionDomain buzonNotificacion){
+        if(buzonNotificacion.getIdentificador().equals(UtilUUID.getUuidDefaultValue())){
+            mensajeExcepcion = "Error, debe estar presente el identificador del buzon para realizar la operacion";
+        }
+        try{
+        messageSenderBuzonNotificacion.execute(buzonNotificacion,"312", buzonNotificacionQueueConfigEliminar.getExchangeName(), buzonNotificacionQueueConfigEliminar.getRoutingKeyName());
+    }catch (AmqpException e){
+            throw e;
+        }
     }
 
     public void listaRecibida(List<BuzonNotificacionDomain> mensaje){
@@ -78,5 +87,8 @@ public class BuzonNotificacionService {
 
     public List<BuzonNotificacionDomain> getRespuesta() {
         return respuesta;
+    }
+    public String getMensajeExcepcion(){
+        return mensajeExcepcion;
     }
 }

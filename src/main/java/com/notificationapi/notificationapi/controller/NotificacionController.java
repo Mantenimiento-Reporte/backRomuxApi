@@ -42,10 +42,4 @@ public class    NotificacionController {
         
     }
 
-    @DeleteMapping("/notificacion")
-    public void delete(@RequestParam(required = true) UUID identificador){
-        notificacionService.deleteNotificacion(identificador);
-    }
-
-
 }
