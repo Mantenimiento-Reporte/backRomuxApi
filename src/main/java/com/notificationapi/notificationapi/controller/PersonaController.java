@@ -20,7 +20,6 @@ public class PersonaController {
 
     @Autowired
     private PersonaService personaService = new PersonaService();
-    private List<String> messageDialog;
 
     @GetMapping("/dummy_persona")
     public PersonaDomain getDummy(){
@@ -50,15 +49,4 @@ public class PersonaController {
         }
     }
 
-    @DeleteMapping("/persona")
-    public ResponseEntity<String> delete(@RequestParam(required = true) UUID identificador){
-        try {
-            personaService.delete(identificador);
-            return new ResponseEntity<>("Usuario Eliminado con Exito!!",HttpStatus.BAD_REQUEST);
-        }catch (NotificationException n){
-            return new ResponseEntity<>("Error,el identificador no es valido",HttpStatus.BAD_REQUEST);
-        }catch (Exception e){
-            return new ResponseEntity<>("Error identificador no encontrado",HttpStatus.BAD_REQUEST);
-        }
-    }
 }

@@ -19,6 +19,8 @@ public class UsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+    @Autowired
+    private PersonaService personaService;
 
 
     public List<UsuarioDomain> findAll(){
@@ -61,12 +63,13 @@ public class UsuarioService {
         }
     }
 
-    public void delete(UUID identificador) throws NotificationException {
-        if(identificador.equals(UtilUUID.getUuidDefaultValue())){
+    public void delete(String correo) throws NotificationException {
+        if(correo.equals(UtilEmail.getDefaultValueMail())){
             throw new NotificationException();
         }
         try{
-            usuarioRepository.deleteById(identificador);
+            usuarioRepository.deleteById(usuarioRepository.findByCorreo(correo).getIdentificador());
+            personaService.delete(correo);
         }catch (Exception e){
             throw e;
         }

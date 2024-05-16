@@ -67,12 +67,14 @@ public class PersonaService {
         }
     }
 
-    public void delete(UUID identificador) throws NotificationException {
-        if(identificador.equals(UtilUUID.getUuidDefaultValue())) {
+    public void delete(String correo) throws NotificationException {
+        if(correo.equals(UtilEmail.getDefaultValueMail())) {
             throw new NotificationException();
         }
         try {
-            personaRepository.deleteById(identificador);
+            PersonaDomain persona = toDomain(personaRepository.findBycorreoElectronico(correo));
+            personaRepository.deleteById(persona.getIdentificador());
+            buzonNotificacionService.eliminar(persona);
         }catch (Exception e){
             throw e;
         }

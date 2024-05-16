@@ -80,6 +80,16 @@ public class BuzonNotificacionService {
         }
     }
 
+    public void eliminar(PersonaDomain persona){
+        BuzonNotificacionDomain buzonNotificacion = new BuzonNotificacionDomain();
+        buzonNotificacion.setPropietario(persona);
+        try{
+            messageSenderBuzonNotificacion.execute(buzonNotificacion,"312", buzonNotificacionQueueConfigEliminar.getExchangeName(), buzonNotificacionQueueConfigEliminar.getRoutingKeyName());
+        }catch (AmqpException e){
+            throw e;
+        }
+    }
+
     public void listaRecibida(List<BuzonNotificacionDomain> mensaje){
         respuesta.clear();
         respuesta.addAll(mensaje);

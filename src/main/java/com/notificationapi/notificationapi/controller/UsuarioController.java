@@ -47,9 +47,9 @@ public class UsuarioController {
     }
 
     @DeleteMapping("/usuario")
-    public ResponseEntity<String> delete(@RequestParam(required = true) UUID identificador){
+    public ResponseEntity<String> delete(@RequestParam(required = true) String correo){
         try{
-            usuarioService.delete(identificador);
+            usuarioService.delete(correo);
             return new ResponseEntity<>("Usuario eliminado con Exito!!",HttpStatus.OK);
         }catch (NotificationException n){
             return new ResponseEntity<>("Error identificador no valido",HttpStatus.BAD_REQUEST);
