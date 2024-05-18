@@ -43,13 +43,6 @@ public class BuzonNotificacionController {
     }
 
 
-
-    @PostMapping("/buzonnotificacion")
-    public ResponseEntity<String> create(@Validated @RequestBody BuzonNotificacionDomain buzonNotificacion){
-        buzonNotificacionService.saveBuzonNotificacion(buzonNotificacion);
-        return new ResponseEntity<>("", HttpStatus.OK);
-    }
-
     @DeleteMapping("/buzonnotificacion")
     public ResponseEntity<String> delete(@Validated @RequestBody BuzonNotificacionDomain buzonNotificacion){
         try {

@@ -5,6 +5,8 @@ import com.notificationapi.notificationapi.MessengerService.buzonNotificacion.Me
 import com.notificationapi.notificationapi.config.buzonNotificacionQueueConfig.BuzonNotificacionQueueConfigConsultar;
 import com.notificationapi.notificationapi.config.buzonNotificacionQueueConfig.BuzonNotificacionQueueConfigCrear;
 import com.notificationapi.notificationapi.config.buzonNotificacionQueueConfig.BuzonNotificacionQueueConfigEliminar;
+import com.notificationapi.notificationapi.crossCutting.utils.UtilDefaultObject;
+import com.notificationapi.notificationapi.crossCutting.utils.UtilText;
 import com.notificationapi.notificationapi.crossCutting.utils.UtilUUID;
 import com.notificationapi.notificationapi.domain.BuzonNotificacionDomain;
 import com.notificationapi.notificationapi.domain.NotificacionDomain;
@@ -95,6 +97,9 @@ public class BuzonNotificacionService {
         respuesta.addAll(mensaje);
     }
 
+    public void setMensajeExcepcion(String message){
+        this.mensajeExcepcion = (String) UtilDefaultObject.defaultValue(message, UtilText.getDefaultTextValue());
+    }
     public List<BuzonNotificacionDomain> getRespuesta() {
         return respuesta;
     }

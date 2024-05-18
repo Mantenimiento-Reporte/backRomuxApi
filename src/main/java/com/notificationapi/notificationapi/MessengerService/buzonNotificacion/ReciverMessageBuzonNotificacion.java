@@ -32,7 +32,19 @@ public class ReciverMessageBuzonNotificacion {
             System.out.println(e);
         }
     }
+    @RabbitListener(queues = "cola.buzon.respuesta")
+    public  void receiveMessageRespuestaBuzon(String message) {
+        var mensajeRecibido = obtenerObjetoDeMensajeString(message).get();
+        try {
+            buzonNotificacionService.setMensajeExcepcion(mensajeRecibido);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
     private Optional<List> obtenerObjetoDeMensaje(String mensaje) {
-        return mapperJsonObjeto.ejecutar(mensaje, List.class);
+        return mapperJsonObjeto.ejecutar(mensaje,List.class);
+    }
+    private Optional<String> obtenerObjetoDeMensajeString(String mensaje){
+        return  mapperJsonObjeto.ejecutar(mensaje,String.class);
     }
 }

@@ -56,9 +56,6 @@ public class NotificacionService {
 
 
     public void saveNotificacion(NotificacionDomain notificacion){
-        if(!UtilDate.isValidDate(notificacion.getFechaCreacion()) || !UtilDate.isValidDate(notificacion.getFechaProgramada())){
-            throw new NoSuchElementException("Error, no se puede crear la notificacion, formato de fechas invalido");
-        }
         messageSenderNotificacion.execute(notificacion,"3423",notificacionQueueConfigCrear.getExchangeName(),notificacionQueueConfigCrear.getRoutingKeyName());
     }
 
