@@ -13,6 +13,7 @@ import java.util.Optional;
 @Component
 public class ReciverMesssageNotificacion {
 
+    @Autowired
     private final NotificacionService notificacionService = new NotificacionService();
 
     @Autowired
@@ -23,10 +24,11 @@ public class ReciverMesssageNotificacion {
     }
 
 
-    //@RabbitListener(queues = "")
-    public void receiveMessageProcessClient(String message) {
+    @RabbitListener(queues = "cola.notificacion.respuesta")
+    public void reciberRespuestaNotificacion(String message) {
+        var mensajeRecibido = obtenerObjetoDeMensajeString(message).get();
         try {
-            notificacionService.saveNotificacion(obtenerObjetoDeMensaje(message).get());
+            notificacionService.setMensajeExcepcion(mensajeRecibido);
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -34,5 +36,8 @@ public class ReciverMesssageNotificacion {
 
     private Optional<NotificacionDomain> obtenerObjetoDeMensaje(String mensaje) {
         return mapperJsonObjeto.ejecutar(mensaje, NotificacionDomain.class);
+    }
+    private Optional<String> obtenerObjetoDeMensajeString(String mensaje){
+        return  mapperJsonObjeto.ejecutar(mensaje,String.class);
     }
 }
