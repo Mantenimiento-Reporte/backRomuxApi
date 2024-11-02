@@ -50,30 +50,7 @@ public class UsuarioService {
 
     }
 
-    public void update(String correoElectronico, String contraseña) throws NotificationException {
-        if(contraseña.equals(UtilText.getDefaultTextValue())){
-            throw new NotificationException();
-        }
-        try {
-            PasswordEncoder passwordEncoder = null;
-            String encriptadaContraseña = passwordEncoder.encode(contraseña);
-            usuarioRepository.updateByCorreoElectronico(encriptadaContraseña, correoElectronico);
-        }catch (Exception e){
-            throw e;
-        }
-    }
 
-    public void delete(String correo) throws NotificationException {
-        if(correo.equals(UtilEmail.getDefaultValueMail())){
-            throw new NotificationException();
-        }
-        try{
-            usuarioRepository.deleteById(usuarioRepository.findByCorreo(correo).getIdentificador());
-            personaService.delete(correo);
-        }catch (Exception e){
-            throw e;
-        }
-    }
 
     private boolean datosSonValidos(UsuarioDomain usuario){
         if(usuario.getCorreoElectronico().equals(UtilEmail.getDefaultValueMail()) || usuario.getCorreoElectronico().equals(UtilEmail.getDefaultValueMail())){

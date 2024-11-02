@@ -34,28 +34,5 @@ public class UsuarioController {
     }
 
 
-    @PutMapping("/usuario")
-    public ResponseEntity<String> update(@RequestParam(required = true) String correoElectronico,@RequestParam String contraseña){
-        try {
-            usuarioService.update(correoElectronico,contraseña);
-            return new ResponseEntity<>("Contraseña actualizada con Exito!!",HttpStatus.BAD_REQUEST);
-        }catch (NotificationException n){
-            return new ResponseEntity<>("Error la contraseña debe tener un formato valido",HttpStatus.BAD_REQUEST);
-        }catch (Exception e){
-            return new ResponseEntity<>("Error la contraseña es demasiado larga",HttpStatus.BAD_REQUEST);
-        }
-    }
-
-    @DeleteMapping("/usuario")
-    public ResponseEntity<String> delete(@RequestParam(required = true) String correo){
-        try{
-            usuarioService.delete(correo);
-            return new ResponseEntity<>("Usuario eliminado con Exito!!",HttpStatus.OK);
-        }catch (NotificationException n){
-            return new ResponseEntity<>("Error identificador no valido",HttpStatus.BAD_REQUEST);
-        }catch (Exception e){
-            return new ResponseEntity<>("Error Identificador no encontrado",HttpStatus.BAD_REQUEST);
-        }
-    }
 
 }

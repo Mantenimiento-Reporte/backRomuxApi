@@ -41,11 +41,9 @@ public class ReciverMessageBuzonNotificacion {
             System.out.println(e);
         }
     }
-
     private Optional<List> obtenerObjetoDeMensaje(String mensaje) {
         return mapperJsonObjeto.ejecutar(mensaje,List.class);
     }
-
     private Optional<String> obtenerObjetoDeMensajeString(String mensaje){
         return  mapperJsonObjeto.ejecutar(mensaje,String.class);
     }

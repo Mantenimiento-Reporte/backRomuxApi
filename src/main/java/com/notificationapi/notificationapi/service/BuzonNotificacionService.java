@@ -18,10 +18,9 @@ import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
-
+import java.util.function.UnaryOperator;
 
 @Service
 @Repository
@@ -101,11 +100,10 @@ public class BuzonNotificacionService {
     public void setMensajeExcepcion(String message){
         this.mensajeExcepcion = (String) UtilDefaultObject.defaultValue(message, UtilText.getDefaultTextValue());
     }
-    public List<BuzonNotificacionDomain>  getRespuesta() {
+    public List<BuzonNotificacionDomain> getRespuesta() {
         return respuesta;
     }
     public String getMensajeExcepcion(){
         return mensajeExcepcion;
     }
-
 }

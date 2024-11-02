@@ -26,12 +26,13 @@ public class    NotificacionController {
 
     @GetMapping("/notificacion")
     public List<NotificacionDomain> get(){
-        return null;
+
+        return notificacionService.findAll();
     }
 
     @GetMapping("/notificacion/autor")
     public ResponseEntity<List<NotificacionDomain>> getNotificacion(@RequestParam(required = true) String correo){
-        return null;
+        return new ResponseEntity<>(notificacionService.getNotificacionesPorDestinatario(correo),HttpStatus.OK);
     }
 
     @PostMapping("/notificacion")
@@ -39,11 +40,6 @@ public class    NotificacionController {
         notificacionService.saveNotificacion(notificacion);
         return new ResponseEntity<>("", HttpStatus.OK);
         
-    }
-
-    @GetMapping("/notificacion/respuesta")
-    public ResponseEntity<String> getRespuesta(){
-        return new ResponseEntity<>(notificacionService.getMensajeExcepcion(),HttpStatus.OK);
     }
 
 }

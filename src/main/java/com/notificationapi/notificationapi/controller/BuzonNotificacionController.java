@@ -54,7 +54,7 @@ public class BuzonNotificacionController {
     }
 
     @GetMapping("/buzonnotificacion/lista")
-    public ResponseEntity<List<BuzonNotificacionDomain> > getLista(){
+    public ResponseEntity<List<BuzonNotificacionDomain>> getLista(){
         return new ResponseEntity<>(buzonNotificacionService.getRespuesta(),HttpStatus.OK);
 
     }

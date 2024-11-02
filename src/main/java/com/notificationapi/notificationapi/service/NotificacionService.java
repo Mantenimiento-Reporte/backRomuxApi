@@ -28,21 +28,20 @@ public class NotificacionService {
     @Autowired
     private NotificacionQueueConfigEliminar notificacionQueueConfigEliminar;
 
-    private String mensajeExcepcion;
 
-
-    public void findAll(){
+    public List<NotificacionDomain> findAll(){
         NotificacionDomain notificacionPorDefecto = new NotificacionDomain();
         messageSenderNotificacion.execute(notificacionPorDefecto,"12312", notificacionQueueConfigConsultar.getExchangeName(),notificacionQueueConfigConsultar.getRoutingKeyName());
+        return null;
     }
 
-    public void getNotificacionesPorDestinatario(String correo){
+    public List<NotificacionDomain> getNotificacionesPorDestinatario(String correo){
        NotificacionDomain notificacionDomain = new NotificacionDomain();
        PersonaDomain autor = new PersonaDomain();
        autor.setCorreoElectronico(correo);
        notificacionDomain.setAutor(autor);
        messageSenderNotificacion.execute(notificacionDomain,"12314", notificacionQueueConfigConsultar.getExchangeName(), notificacionQueueConfigConsultar.getRoutingKeyName());
-
+       return null;
     }
 
 
@@ -64,14 +63,6 @@ public class NotificacionService {
         NotificacionDomain notificacion = new NotificacionDomain();
         notificacion.setIdentificador(identificador);
         messageSenderNotificacion.execute(notificacion,"235432 ", notificacionQueueConfigEliminar.getExchangeName(), notificacionQueueConfigEliminar.getRoutingKeyName());
-    }
-
-    public void setMensajeExcepcion(String mensaje){
-        this.mensajeExcepcion = mensaje;
-    }
-
-    public String getMensajeExcepcion(){
-        return mensajeExcepcion;
     }
 
 }
