@@ -15,5 +15,8 @@ public interface UsuarioRepository extends JpaRepository<UsuarioEntity, UUID> {
 
     @Query(value = "SELECT * FROM usuario WHERE correo_electronico =?1",nativeQuery = true)
     UsuarioEntity findByCorreo(String correoElectronico);
-
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE public.usuario SET password =?1 WHERE correo_electronico =?2",nativeQuery = true)
+    void updateByCorreoElectronico(String contraseña,String correoElectronico);
 }

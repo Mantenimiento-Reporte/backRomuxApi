@@ -20,6 +20,8 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
     @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
     private PersonaService personaService;
 
 
@@ -50,6 +52,28 @@ public class UsuarioService {
 
     }
 
+    public void delete(String correo) throws NotificationException {
+        if(correo.equals(UtilEmail.getDefaultValueMail())){
+            throw new NotificationException();
+        }
+        try{
+            usuarioRepository.deleteById(usuarioRepository.findByCorreo(correo).getIdentificador());
+            personaService.delete(correo);
+        }catch (Exception e){
+            throw e;
+        }
+    }
+    public void update(String correoElectronico, String contraseña) throws NotificationException {
+        if(contraseña.equals(UtilText.getDefaultTextValue())){
+            throw new NotificationException();
+        }
+        try {
+            String encriptadaContraseña = passwordEncoder.encode(contraseña);
+            usuarioRepository.updateByCorreoElectronico(encriptadaContraseña, correoElectronico);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
 
     private boolean datosSonValidos(UsuarioDomain usuario){

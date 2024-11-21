@@ -56,6 +56,7 @@ public class PersonaService {
     }
 
     public void update(PersonaDomain persona) throws NotificationException {
+        var  Persona = personaRepository.findBycorreoElectronico(persona.getCorreoElectronico());
         if(persona.getCorreoElectronico().equals(UtilText.getDefaultTextValue()) || persona.getCorreoElectronico().equals(UtilEmail.getDefaultValueMail())){
             throw new NotificationException();
         }
