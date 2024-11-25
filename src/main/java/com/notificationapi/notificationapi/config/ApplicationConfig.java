@@ -1,6 +1,7 @@
 package com.notificationapi.notificationapi.config;
 
 import com.notificationapi.notificationapi.repository.UsuarioRepository;
+import com.notificationapi.notificationapi.service.ReporteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

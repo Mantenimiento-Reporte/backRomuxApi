@@ -46,6 +46,12 @@ dependencies {
 	implementation 'com.google.code.gson:gson:2.8.9'
 	implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.3'
 
+
+	// Apache POI and POI-OOXML (add these lines)
+	implementation 'org.apache.poi:poi:5.2.5' // Core functionalities
+	implementation 'org.apache.poi:poi-ooxml:5.2.5' // Support for modern Excel formats
+
+
 	// Spring Boot y Security Test
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'

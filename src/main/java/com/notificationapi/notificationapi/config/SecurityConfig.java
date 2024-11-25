@@ -33,7 +33,7 @@ public class SecurityConfig {
                                 .disable())
                 .authorizeHttpRequests(authRequest ->
                         authRequest
-                                .requestMatchers("/auth/**").permitAll()
+                                .requestMatchers("/auth/**" , "/v1/reporte/gen").permitAll()
                                 .anyRequest().authenticated()
                 )
                 .sessionManagement(sessionManager->
