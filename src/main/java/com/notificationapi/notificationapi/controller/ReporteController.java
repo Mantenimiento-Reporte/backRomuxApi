@@ -18,7 +18,7 @@ public class ReporteController {
 
     @GetMapping("/gen")
     public ResponseEntity<?> generarReporte() {
-        if (reporteService.generarReporte("C:\\Users\\User\\Desktop\\reportePersonas.xlsx")){
+        if (reporteService.generarReporte("C:\\Users\\juanj\\Documents\\Mantenimiento\\reportePersonas1.xlsx")){
             return ResponseEntity.ok("Reporte generado exitosamente");
         }else {
             return ResponseEntity.ok("Reporte NO generado exitosamente");
